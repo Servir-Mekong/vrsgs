@@ -1,7 +1,7 @@
-### The steps are meant to turn a generic Ubuntu server into an Django server hosting the LHASA tool with PostgreSQL, Nginx, Gunicorn and Virtualenv
+### The steps are meant to turn a generic Ubuntu server into an Django server hosting the VRSGS tool with PostgreSQL, Nginx, Gunicorn and Virtualenv
 
-### About LHASA Tool
-The LHASA is a web application for Landslide Hazard Assessment for Situational Awareness of the Mekong Region.
+### About VRSGS Tool
+The VRSGS is a web application for Landslide Hazard Assessment for Situational Awareness of the Mekong Region.
 
 ### Update Ubuntu Server
 ```
@@ -50,28 +50,28 @@ postgres# \q
 
 [Reference - Additional Informations](https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-20-04)
 ```
-### Create an empty directory for lhasa_tool
+### Create an empty directory for vrsgs_tool
 ```
-mkdir /home/ubuntu/lhasa_tool
+mkdir /home/ubuntu/vrsgs_tool
 ```
 ### Create a Python3 Virtual Environment
 ```
-// Navigate to lhasa_tool directory
-cd /home/ubuntu/lhasa_tool
+// Navigate to vrsgs_tool directory
+cd /home/ubuntu/vrsgs_tool
 
-// Create a virtual environment name lhasa_env
-python3 -m venv lhasa_env
+// Create a virtual environment name vrsgs_env
+python3 -m venv vrsgs_env
 
 // Now activate the virtual environment
-source lhasa_env/bin/activate
+source vrsgs_env/bin/activate
 ```
-### Git Clone the lhasa tool from github and install packages
+### Git Clone the vrsgs tool from github and install packages
 ```
-// git clone lhasa_github_address
-git clone https://github.com/Servir-Mekong/lhasa.git
+// git clone vrsgs_github_address
+git clone https://github.com/Servir-Mekong/vrsgs.git
 
 // Change directory
-cd lhasa
+cd vrsgs
 
 // Install dependencies from the requirements.txt
 pip install -r requirements.txt
@@ -82,8 +82,8 @@ pip install gunicorn
 ```
 ### Create and config local_settings.py file
 ```
-// Navigate to lhasa directory
-cd lhasa
+// Navigate to vrsgs directory
+cd vrsgs
 
 // Open an empty python file
 sudo nano local_settings.py
@@ -108,7 +108,7 @@ DATABASES = {
 ```
 ### Migrate database and create superuser to access Django admin panel
 ```
-// Back to lhasa directory
+// Back to vrsgs directory
 cd ..
 
 // Now migrate by
@@ -140,7 +140,7 @@ http://server_domain_or_IP:8000
 ```
 ### Testing Gunicorn’s Ability to Serve the Project
 ```
-gunicorn --bind 0.0.0.0:8000 lhasa.wsgi
+gunicorn --bind 0.0.0.0:8000 vrsgs.wsgi
 
 // Now open a browser and check the development server with gunicorn by typing
 http://server_domain_or_IP:8000
@@ -182,12 +182,12 @@ PIDFile=/run/gunicorn/pid
 User=ubuntu
 Group=ubuntu
 RuntimeDirectory=gunicorn
-WorkingDirectory=/home/ubuntu/lhasa_tool/lhasa
-ExecStart=/home/ubuntu/lhasa_tool/lhasa_env/bin/gunicorn \
+WorkingDirectory=/home/ubuntu/vrsgs_tool/vrsgs
+ExecStart=/home/ubuntu/vrsgs_tool/vrsgs_env/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
           --bind unix:/run/gunicorn.sock \
-         lhasa.wsgi:application
+         vrsgs.wsgi:application
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
@@ -203,7 +203,7 @@ sudo systemctl status gunicorn.socket
 ### Configure Nginx to Proxy Pass to Gunicorn
 ```
 // Start by creating and opening a new server block in Nginx’s sites-available directory:
-sudo nano /etc/nginx/sites-available/lhasa_tool
+sudo nano /etc/nginx/sites-available/vrsgs_tool
 
 // Edit the file
 server {
@@ -212,7 +212,7 @@ server {
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
-        root /home/ubuntu/lhasa_tool;
+        root /home/ubuntu/vrsgs_tool;
     }
 
     location / {
@@ -224,7 +224,7 @@ server {
 // Now save and exit
 
 // Enable the file by linking it to the sites-enabled directory
-sudo ln -s /etc/nginx/sites-available/lhasa_tool /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/vrsgs_tool /etc/nginx/sites-enabled
 ```
 ### Test and configure NGINX
 ```
