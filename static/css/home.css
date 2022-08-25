@@ -1,0 +1,211 @@
+/* jumbotron section*/
+.jumbotron {
+    margin-bottom: 0px;
+    margin-top: 0px; 
+    padding: 0;
+    background-image: url("/static/images/vrsgs_banner.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 350px;
+} 
+.jumbotron-card{
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+}
+.jumbotron-card h1{
+    text-align: left;
+    font-family: 'Ubuntu';
+    /* padding-left: 75px; */
+    font-weight: 400;
+    padding-top: 80px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #AEEA00;
+}
+.jumbotron h3{
+    text-align: left;
+    padding-left: 75px;
+    font-family: 'Ubuntu';
+    margin-top: 0px;
+    padding-top: 5px;
+    padding-bottom: 20px;
+    color: #fff;
+    font-size: 20px;
+}
+.jmb-highlight{
+    color: #AEEA00; 
+    font-weight: bold;
+}
+.jumbotron .btn-jumbotron{
+    background-color: #AEEA00;
+    /* border-radius: 25px 25px 25px 25px; */
+    outline:none !important;
+    box-shadow: none !important;
+    padding-left: 35px;
+    padding-right: 35px;
+    color: #000;
+    margin-bottom: 100px;
+    margin-left: 75px;
+    font-family: 'ubuntu';
+    font-size: 14px;
+    font-weight: bold;
+}
+.jumbotron .btn-jumbotron:hover {
+    background-color: #C6FF00;
+    /* border-radius: 25px 25px 25px 25px; */
+    outline:none !important;
+    box-shadow: none !important;
+    padding-left: 35px;
+    padding-right: 35px;
+    /* color: #fff;  */
+}
+/* Bounce To Top */
+.hvr-bounce-to-right:before {
+    background: #ef6c00;
+}
+.jumbotron p{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    padding-left: 0px;
+}
+@media only screen and (max-width: 576px) {
+    .jumbotron {
+        height: 350px;
+        text-align: center;
+    } 
+    .jumbotron-card{
+        background-color: rgba(0,0,0,.3);
+        width: 100%;
+    }
+    .jumbotron h1{
+        text-align: center;
+        padding-left: 0px;
+    }
+    .jumbotron h3{
+        text-align: center;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .jumbotron .btn-jumbotron{
+        margin-left: 0px;
+    }
+    .jumbotron p{
+        display: none;
+    }
+}
+@media (min-width: 577px) and (max-width: 800px){
+    .jumbotron-card{
+        background-color: rgba(0,0,0,.3);
+        width: 100%;
+    }
+}
+/* end jumbotron section */
+.search{
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, .1);     
+}
+.search input{
+    height: 50px;
+    text-indent: 25px;
+    border: 2px solid #d6d4d4;
+}
+.search .fa-search{
+    position: absolute;
+    top: 18px;
+    left: 20px;
+}
+.search input:focus{
+    box-shadow: 0 0 40px rgba(51, 51, 51, .5) !important; 
+    /* border: 2px solid blue; */
+}
+.services .list-group-item{
+    font-size: 16px;
+    border-bottom: 1px solid #fff;
+    background-color: none;
+}
+.custom-tooltips {
+    position: relative;
+    display: inline-block;
+}
+.custom-tooltips .tooltips-area {
+    visibility: hidden;
+    width: 350px;
+    background: rgb(34, 39, 34);
+    color: #fff;
+    text-align: center;
+    /* border-radius: 6px; */
+    /* padding: 5px 0; */
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -20px;
+    left: 102%;
+}
+  
+.custom-tooltips:hover .tooltips-area {
+    visibility: visible;
+}
+.custom-tooltips-card {
+    background: #e3f2fd;
+    border-left: 5px solid #0D47A1;
+    color: #000;
+    text-align: start;
+}
+.custom-tooltips-card .list-group{
+    background: #e3f2fd;
+    border: none;
+}
+.custom-tooltips-card .list-group-item{
+    background-color: #e3f2fd;
+    border: none;
+}
+.btn-rounded{
+    border-radius: 20px;
+    border: 1px solid white;
+    background-color: #75E6DA;
+    color: #fff;
+}
+.btn-rounded1{
+    border-radius: 20px;
+    border: 1px solid white;
+    background-color: #75E6DA;
+    color: #000;
+}
+.btn-rounded2{
+    border-radius: 20px;
+    border: 1px solid white;
+    background-color: #D4F1F4;
+    color: #000;
+}
+.btn-rounded:hover{
+    background-color: #0b4ab0;
+    color: #fff;
+}
+.btn-rounded1:hover{
+    background-color: darkcyan;
+    color: #fff;
+}
+.btn-rounded2:hover{
+    background-color: darkcyan;
+    color: #fff;
+}
+.btn-rounded3{
+    border-radius: 20px;
+    border: 1px solid white;
+    background-color: #dae6e5;
+    color: #000;
+}
+.btn-rounded3:hover{
+    background-color: darkcyan;
+    color: #fff;
+}
+.bg-card-header{
+    background-color: #189AB4;
+}
+.border-custom-color{
+    border: 1px solid #189AB4;
+}

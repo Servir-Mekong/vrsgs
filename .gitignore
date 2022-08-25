@@ -1,0 +1,17 @@
+#ignore python compile files
+*.pyc
+
+#ignore static files
+static/vendor/*
+static/data/*
+
+#ignore settings
+lhasa/local_settings.py
+
+#ignore db
+*.sqlite3
+
+#node and related environment files
+.npmignore
+node_modules/
+__pycache__/

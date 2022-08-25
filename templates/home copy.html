@@ -1,0 +1,471 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block container %}
+
+{% include 'navigation.html' %}
+
+<div class="bg-light ms-0 me-0 ps-0 pe-0 mt-0 pt-0 p-0">
+    <div class="jumbotron text-left">
+        <div class="jumbotron-card">
+            <div class="container">
+                <h1 class="text-center mb-5">MEKONG VIRTUAL DATA SERVICE</h1> 
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="search">
+                            <i class="fa fa-search"></i>
+                            <input type="search" class="form-control py-2 rounded-pill me-1 pe-5 ps-4" placeholder="Search . . . .">
+                            <!-- <button class="btn btn-primary"> Search</button> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div> 
+            </div> 
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mt-5 pt-5 services">
+        <div class="col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <button class="text-white bg-primary custom-tooltips">
+                        <i class="fa-solid fa-cloud-rain"></i> Precipitation
+                        <span class="tooltips-area">
+                            <div class="card card-body custom-tooltips-card">
+                                <ul class="list-group list-group-horizontal">
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="list-group list-group-horizontal">
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                            <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="list-group list-group-horizontal">
+                                    <li class="list-group-item">
+                                        <button type="button" class="btn btn-primary"><a href="">test</a></button>
+                                    </li>
+                                </ul>   
+                            </div>
+                        </span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group">
+                <!-- <li class="list-group-item text-white bg-primary custom-tooltips">
+                    <i class="fa-solid fa-cloud-rain"></i> Precipitation
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <button type="button" class="btn btn-primary"><a href="http://">test</a></button>
+                                </li>
+                            </ul>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                <label class="form-check-label" for="inlineRadio3">Historical</label>
+                            </div> 
+                        </div>
+                    </span>
+                </li> -->
+                <!-- <a href="#" class="list-group-item list-group-item-action text-white bg-primary custom-tooltips">
+                    A simple default list group item
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card text-dark text-left">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                <label class="form-check-label" for="inlineRadio3">Historical</label>
+                            </div>
+                        </div>
+                    </span>
+                </a> -->
+            </ul>
+
+            <!-- <div class="custom-tooltips">
+                
+                <a class="btn btn-primary" role="button">Hover over me</a> 
+                <span class="tooltips-area">
+                    <div class="card card-body custom-tooltips-card">
+                        <button class="btn btn-primary">try</button>
+                    </div>
+                </span>
+            </div> -->
+
+            <!-- <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action">
+                    <span class="custom-tooltips">A second item</span> 
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card">
+                            <button class="btn btn-primary">try</button>
+                        </div>
+                    </span>
+                </button>
+            </div> -->
+            <!-- <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="tooltip" data-bs-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>">
+                    Tooltip with HTML
+                  </button>
+                  
+                <button type="button" class="list-group-item list-group-item-action">A second item</button>
+                <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+                <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+            </div> -->
+            
+            <!-- <ul class="list-group m-0 p-0">
+                <li class="list-group-item bg-primary text-">Precipitation</li>
+                <li class="list-group-item bg-primary">Soil Moisture</li>
+                <li class="list-group-item bg-primary">Land Subsidence</li>
+                <li class="list-group-item bg-primary">Salinity</li>
+            </ul> -->
+
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group m-0 p-0">
+                <li class="list-group-item">Water Elevation</li>
+                <li class="list-group-item">Ground Water</li>
+                <li class="list-group-item">Temperature</li>
+                <li class="list-group-item">Urban Heat</li>
+            </ul>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    {% include 'partners.html' %}
+</div>
+
+{% include 'footer.html' %}
+
+{% endblock container %}
+
+ <!-- <div class="row mt-5 pt-5 pb-5 services">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item bg-card-header text-white btn btn-primary custom-tooltips text-start" role="button">
+                    <i class="fa-solid fa-cloud-rain"></i> Precipitation
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                        <label class="form-check-label" for="inlineRadio3">Historical</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="btn-group pt-3 pb-3">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-map"></i> View on Map</a>
+                                <a href="#" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+                <li class="list-group-item bg-card-header text-white btn btn-primary custom-tooltips text-start" role="button">
+                    <i class="fas fa-sun"></i> Soil Moisture
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                        <label class="form-check-label" for="inlineRadio3">Historical</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="btn-group pt-3 pb-3">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-map"></i> View on Map</a>
+                                <a href="#" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+                <li class="list-group-item bg-card-header text-white btn btn-primary custom-tooltips text-start" role="button">
+                    <i class="fa-solid fa-house-crack"></i> Land Subsidence
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                        <label class="form-check-label" for="inlineRadio3">Historical</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="btn-group pt-3 pb-3">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-map"></i> View on Map</a>
+                                <a href="#" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+                <li class="list-group-item bg-card-header text-white btn btn-primary custom-tooltips text-start" role="button">
+                    <i class="fas fa-droplet"></i> Salinity
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                        <label class="form-check-label" for="inlineRadio3">Historical</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="btn-group pt-3 pb-3">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-map"></i> View on Map</a>
+                                <a href="#" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item bg-card-header text-white btn btn-primary custom-tooltips text-start" role="button">
+                    <i class="fa-solid fa-bacon"></i> Water Elevation
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                        <label class="form-check-label" for="inlineRadio3">Historical</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="btn-group pt-3 pb-3">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-map"></i> View on Map</a>
+                                <a href="#" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+                <li class="list-group-item bg-card-header text-white btn btn-primary custom-tooltips text-start" role="button">
+                    <i class="fa-solid fa-water"></i> Ground Water
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                        <label class="form-check-label" for="inlineRadio3">Historical</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="btn-group pt-3 pb-3">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-map"></i> View on Map</a>
+                                <a href="#" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+                <li class="list-group-item bg-card-header text-white btn btn-primary custom-tooltips text-start" role="button">
+                    <i class="fa-solid fa-temperature-high"></i> Temperature
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                        <label class="form-check-label" for="inlineRadio3">Historical</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="btn-group pt-3 pb-3">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-map"></i> View on Map</a>
+                                <a href="#" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+                <li class="list-group-item bg-card-header text-white btn btn-primary custom-tooltips text-start" role="button">
+                    <i class="fa-solid fa-temperature-arrow-up"></i> Urban Heat
+                    <span class="tooltips-area">
+                        <div class="card card-body custom-tooltips-card">
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                        <label class="form-check-label" for="inlineRadio3">Historical</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="btn-group pt-3 pb-3">
+                                <a href="#" class="btn btn-primary"><i class="fas fa-map"></i> View on Map</a>
+                                <a href="#" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3"></div>
+    </div> -->

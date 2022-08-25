@@ -1,0 +1,489 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}VRSGS | SERVIR-Mekong{% endblock %}
+
+{% block container %}
+
+{% include 'navigation.html' %}
+
+<div class="bg-light ms-0 me-0 ps-0 pe-0 mt-0 pt-0 p-0">
+    <div class="jumbotron text-left">
+        <div class="jumbotron-card">
+            <div class="container">
+                <h1 class="text-center mb-5">MEKONG VIRTUAL DATA SERVICE</h1> 
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="search">
+                            <i class="fa fa-search"></i>
+                            <input type="search" class="form-control py-2 rounded-pill me-1 pe-5 ps-4" placeholder="Search . . . .">
+                            <!-- <button class="btn btn-primary"> Search</button> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div> 
+            </div> 
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row mt-5 mb-5 pt-5 pb-5">
+        <div class="col-md-3">
+            <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-cloud-rain"></i> Precipitation</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="precip" id="precipForecast" value="precipForecast" checked>
+                                <label class="form-check-label" for="precipForecast">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="precip" id="precipHist" value="precipHist">
+                                <label class="form-check-label" for="precipHist">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="precip" id="precipNRT" value="precipNRT">
+                                <label class="form-check-label" for="precipNRT">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="/precipitation-map/" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fas fa-sun"></i> Soil Moisture</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="soil-moisture" id="soil-moisture-forecasted" value="soil-moisture-forecasted" checked>
+                                <label class="form-check-label" for="soil-moisture-forecasted">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="soil-moisture" id="soil-moisture-hist" value="soil-moisture-hist">
+                                <label class="form-check-label" for="soil-moisture-hist">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="soil-moisture" id="soil-moisture-nrt" value="soil-moisture-nrt">
+                                <label class="form-check-label" for="soil-moisture-nrt">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-house-crack"></i> Land Subsidence</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="land-subsidence" id="land-subsidence-forecasted" value="land-subsidence-forecasted" checked>
+                                <label class="form-check-label" for="land-subsidence-forecasted">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="land-subsidence" id="land-subsidence-hist" value="land-subsidence-hist">
+                                <label class="form-check-label" for="land-subsidence-hist">Historical</label>
+                            </div>
+                        </li>land-subsidence-hist
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="land-subsidence" id="land-subsidence-nrt" value="land-subsidence-nrt">
+                                <label class="form-check-label" for="land-subsidence-nrt">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"> <i class="fas fa-droplet"></i> Salinity</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="salinity" id="salinity-forecasted" value="salinity-forecasted" checked>
+                                <label class="form-check-label" for="salinity-forecasted">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="salinity" id="salinity-hist" value="salinity-hist">
+                                <label class="form-check-label" for="salinity-hist">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="salinity" id="salinity-nrt" value="salinity-nrt">
+                                <label class="form-check-label" for="salinity-nrt">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 mb-5 pb-5">
+        <div class="col-md-3">
+            <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-bacon"></i> Water Elevation</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="water-elv" id="water-elv-forecasted" value="water-elv-forecasted" checked>
+                                <label class="form-check-label" for="water-elv-forecasted">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="water-elv" id="water-elv-hist" value="water-elv-hist">
+                                <label class="form-check-label" for="water-elv-hist">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="water-elv-nrt" id="water-elv-nrt" value="water-elv-nrt">
+                                <label class="form-check-label" for="water-elv-nrt">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-water"></i> Ground Water</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ground-water" id="ground-water-forecasted" value="ground-water-forecasted" checked>
+                                <label class="form-check-label" for="ground-water-forecasted">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ground-water" id="ground-water-hist" value="ground-water-hist">
+                                <label class="form-check-label" for="ground-water-hist">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ground-water" id="ground-water-nrt" value="ground-water-nrt">
+                                <label class="form-check-label" for="ground-water-nrt">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-temperature-high"></i> Temperature</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="temp" id="temp-forecasted" value="temp-forecasted" checked>
+                                <label class="form-check-label" for="temp-forecasted">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="temp" id="temp-hist" value="temp-hist">
+                                <label class="form-check-label" for="temp-hist">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="temp" id="temp-nrt" value="temp-nrt">
+                                <label class="form-check-label" for="temp-nrt">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-temperature-arrow-up"></i> Urban Heat</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="urban-heat" id="urban-heat-forecasted" value="urban-heat-forcasted" checked>
+                                <label class="form-check-label" for="urban-heat-forecasted">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="urban-heat" id="urban-heat-hist" value="urban-heat-hist">
+                                <label class="form-check-label" for="urban-heat-hist">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="urban-heat" id="urban-heat-nrt" value="urban-heat-nrt">
+                                <label class="form-check-label" for="urban-heat-nrt">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 mb-5 pb-5">
+        <div class="col-md-3">
+            <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-triangle-exclamation"></i> GPM-BICO</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gpm-bico" id="gpm-bico-forecasted" value="gpm-bico-forecasted" checked>
+                                <label class="form-check-label" for="gpm-bico-forecasted">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gpm-bico" id="gpm-bico-hist" value="gpm-bico-hist">
+                                <label class="form-check-label" for="gpm-bico-hist">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gpm-bico" id="gpm-bico-nrt" value="gpm-bico-nrt">
+                                <label class="form-check-label" for="gpm-bico-nrt">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0 pb-3">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                    <a class="btn btn-rounded3" href="https://github.com/Servir-Mekong/GPM-BICO" target="_blank"><i class="fa-brands fa-github"></i> View GitHub Repo</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-circle-exclamation"></i> CHIRPS-GEFS</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="chirps-gefs" id="chirps-gefs-forecasted" value="chirps-gefs-forecasted" checked>
+                                <label class="form-check-label" for="chirps-gefs-forecast">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="chirps-gefs" id="chirps-gefs-hist" value="chirps-gefs-hist">
+                                <label class="form-check-label" for="chirps-gefs-hist">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="chirps-gefs" id="chirps-gefs-nrt" value="chirps-gefs-nrt">
+                                <label class="form-check-label" for="chirps-gefs-nrt">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0 pb-3">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                    <a class="btn btn-rounded3" href="https://github.com/Servir-Mekong/ClimateSERV_CHIRPS-GEFS" target="_blank"><i class="fa-brands fa-github"></i> View GitHub Repo</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!-- <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-temperature-high"></i> Temperature</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                                <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                <label class="form-check-label" for="inlineRadio3">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="col-md-3">
+            <!-- <div class="card border-custom-color border-1">
+                <div class="card-header bg-card-header text-white">
+                    <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-temperature-arrow-up"></i> Urban Heat</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                                <label class="form-check-label" for="inlineRadio1">Forecasted</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                <label class="form-check-label" for="inlineRadio3">Historical</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item border-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                <label class="form-check-label" for="inlineRadio2">Near-Real time</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                    <div class="btn-group pt-3 pb-3">
+                        <a href="#" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    {% include 'partners.html' %}
+</div>
+
+{% include 'footer.html' %}
+
+{% endblock container %}
