@@ -1,0 +1,12 @@
+cftime==1.6.1
+Django==4.0.5
+netCDF4==1.6.0
+numpy==1.23.0
+packaging==21.3
+pandas==1.4.3
+pyparsing==3.0.9
+python-dateutil==2.8.2
+pytz==2022.1
+six==1.16.0
+sqlparse==0.4.2
+xarray==2022.3.0
