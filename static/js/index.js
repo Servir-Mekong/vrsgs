@@ -152,101 +152,106 @@ for (var i = 0; i < basemap_list.length; i++) {
 
 function getDatesInRange(startDate, endDate) {
     const date = new Date(startDate.getTime());
-  
     // Exclude start date
     date.setDate(date.getDate() + 1);
-  
     const dates = [];
-  
     // Exclude end date
     while (date < endDate) {
 
       dates.push(new Date(date).toISOString().split('T')[0].replace("-", "").replace("-", ""));
       date.setDate(date.getDate() + 1);
     }
-  
     return dates;
-  }
-  
-//   const d1 =  new Date('2022-07-27');;
-//   const d2 = new Date()
-  
-//   console.log(getDatesInRange(d1, d2));
+}
 
-const td = new Date("2022-08-14");//"2022-07-27"
+function getDatesInRangeCHIRPS(startDate, endDate) {
+    const date = new Date(startDate.getTime());
+    // Exclude start date
+    date.setDate(date.getDate() + 1);
+    const dates = [];
+    // Exclude end date
+    while (date < endDate) {
+
+      dates.push(new Date(date).toISOString().split('T')[0].replace("-", ".").replace("-", ""));
+      date.setDate(date.getDate() + 1);
+    }
+    return dates;
+}
+  
+const td = new Date(); // "2022-08-14"
 const priorDate = td.setDate(td.getDate() - 5)
-const nd = new Date(priorDate).toISOString().split('T')[0].replace("-", "").replace("-", "");
-// console.log(nd)
-// const year = nd.getFullYear().toString();
-// const month = (nd.getMonth()+1).toString();
-// const day = nd.getDay().toString()
+// const nd = new Date(priorDate).toISOString().split('T')[0].replace("-", "").replace("-", "");
+
+const td2 = new Date();
+const endDate = td2.setDate(td2.getDate() + 1)
 
 const d1 =  new Date(priorDate);
-const d2 = new Date("2022-08-15"); //"2022-07-27"
+const d2 = new Date(endDate); //"2022-08-15"
 
 const dates = getDatesInRange(d1, d2)
-
+const dates_chirps = getDatesInRangeCHIRPS(d1, d2)
 // console.log(dates);
 
 var dateValue = document.getElementById("date_value");
 
+// const dateString = dates[0];
+// const year = +dateString.substring(0, 4);
+// const month = +dateString.substring(4, 6);
+// const day = +dateString.substring(6, 8);
+// const date = new Date(year, month - 1, day).toLocaleString('en-us',{month:'long', day:'numeric', year:'numeric'});
+// console.log(date)
+
 dateValue.innerHTML = dates[0];
 
-var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[0];
+var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
+// console.log(lyr)
 var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-    layers: 'cmorph:'+lyr,
+    layers: 'chirps:'+lyr,
     format: 'image/png',
     transparent: true,
     styles: 'virtual_rain_style',
 });
-
 var sliderRange = document.getElementById("dateRange");
-    sliderRange.max = dates.length - 1;
-    // Update the slider range value by time
+    sliderRange.max = dates_chirps.length - 1;
     sliderRange.oninput = function(){
-        dateValue.innerHTML = dates[this.value];
-        var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[this.value];
+        dateValue.innerHTML = dates_chirps[this.value];
+        var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[this.value];
+        console.log(lyr)
         var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-            layers: 'cmorph:'+lyr,
+            layers: 'chirps:'+lyr,
             format: 'image/png',
             transparent: true,
             styles: 'virtual_rain_style',
         }).addTo(map);
     };
+var i = 0;
+var timer;
+function play(){
+    map.addLayer(wmsLayer);
+    timer = setTimeout(run, 3000);
+    function run(){ 
+        if (map.haslayer == "wmsLayer"){
+            map.removeLayer(wmsLayer)
+        }
+        dateValue.innerHTML = dates_chirps[i];
+        var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[i];
+        var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+            layers: 'chirps:'+lyr,
+            format: 'image/png',
+            transparent: true,
+            styles: 'virtual_rain_style',
+        }).addTo(map);
 
-    var i = 0;
-    var timer;
-
-    function play(){
-        map.addLayer(wmsLayer);
-        timer = setTimeout(run, 3000);
-        function run(){ 
-            if (map.haslayer == "wmsLayer"){
-                map.removeLayer(wmsLayer)
-            }
-            dateValue.innerHTML = dates[i];
-            var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[i];
-            var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-                layers: 'cmorph:'+lyr,
-                format: 'image/png',
-                transparent: true,
-                styles: 'virtual_rain_style',
-            });
-            map.addLayer(wmsLayer);
-
-            sliderRange.value = i; 
-            i++
-            // play();
-            if (i < 5){
-                play();
-            } else {
-                i=0
-            }
+        sliderRange.value = i; 
+        i++
+        // play();
+        if (i < 5){
+            play();
+        } else {
+            i=0
         }
     }
-
-
-
+}
 var start = document.getElementById("play");
 start.addEventListener("click", play);
 
@@ -256,106 +261,194 @@ stopBtn.addEventListener("click", pause);
 var resetBtn = document.getElementById("reset");
 resetBtn.addEventListener("click", reset);
 
-
 function pause() {
     clearTimeout(timer);
-    // dateValue.innerHTML = dates[i];
-    // map.removeLayer(wmsLayer);
-    // sliderRange.value = i; 
 }
-
 function reset(){
     clearTimeout(timer);
     i=0
     var dateValue = document.getElementById("date_value");
-    dateValue.innerHTML = dates[0];
+    dateValue.innerHTML = dates_chirps[0];
     sliderRange.value = i;
-    var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[0];
+    var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
     var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-        layers: 'cmorph:'+lyr,
+        layers: 'chirps:'+lyr,
         format: 'image/png',
         transparent: true,
         styles: 'virtual_rain_style',
-    });
-    map.addLayer(wmsLayer);
+    }).addTo(map);
 }
+
+// Update map based on selection of precipitation types
+var precipBtn = document.getElementById("precipType");
+precipBtn.onclick = function(){
+    if (map.haslayer == "wmsLayer"){
+        map.removeLayer(wmsLayer)
+    }
+    var precip_type = document.querySelector('input[name=precipOptions]:checked').value;
+    if (precip_type == 'chirps'){
+        var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
+        // console.log(lyr)
+        var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+            layers: precip_type+':'+lyr,
+            format: 'image/png',
+            transparent: true,
+            styles: 'virtual_rain_style',
+        });
+        var sliderRange = document.getElementById("dateRange");
+        sliderRange.max = dates_chirps.length - 1;
+        sliderRange.oninput = function(){
+            dateValue.innerHTML = dates_chirps[this.value];
+            var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[this.value];
+            var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+                layers: precip_type+':'+lyr,
+                format: 'image/png',
+                transparent: true,
+                styles: 'virtual_rain_style',
+            }).addTo(map);
+        };
+        var i = 0;
+        var timer;
+        function play(){
+            map.addLayer(wmsLayer);
+            timer = setTimeout(run, 3000);
+            function run(){ 
+                if (map.haslayer == "wmsLayer"){
+                    map.removeLayer(wmsLayer)
+                }
+                dateValue.innerHTML = dates_chirps[i];
+                var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[i];
+                var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+                    layers: precip_type+':'+lyr,
+                    format: 'image/png',
+                    transparent: true,
+                    styles: 'virtual_rain_style',
+                }).addTo(map);
     
-// var lyrNames = ['tasmania_state_boundaries','tasmania_water_bodies', 'tasmania_roads', 'tasmania_cities']
+                sliderRange.value = i; 
+                i++
+                // play();
+                if (i < 5){
+                    play();
+                } else {
+                    i=0
+                }
+            }
+        }
+        var start = document.getElementById("play");
+        start.addEventListener("click", play);
 
-// dateValue.innerHTML = lyrNames[0];
+        var stopBtn = document.getElementById("pause");
+        stopBtn.addEventListener("click", pause);
 
-// var sliderRange = document.getElementById("dateRange");
-//     // sliderRange.max = dates.length;
-//     sliderRange.max = lyrNames.length-1;
+        var resetBtn = document.getElementById("reset");
+        resetBtn.addEventListener("click", reset);
 
-//     // Update the slider range value by time
-//     // var lyr;
-//     sliderRange.oninput = function(){
-//         // dateValue.innerHTML = dates[this.value];
-//         // var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[this.value];
-//         // var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-//         //     layers: 'cmorph:'+lyr
-//         // }).addTo(map);
-//         if (map.haslayer == "wmsLayer"){
-//             map.removeLayer(wmsLayer)
-//         }
-//         dateValue.innerHTML = lyrNames[this.value];
-//         var lyr = lyrNames[this.value];
-//         // console.log(lyr);
-//         var wmsLayer = L.tileLayer.wms('http://localhost:8080/geoserver/wms?', {
-//             layers: 'topp:'+lyr,
-//             format: 'image/png',
-//             transparent: true,
-//         }).addTo(map);
-//     };
+        function pause() {
+            clearTimeout(timer);
+        }
+        function reset(){
+            clearTimeout(timer);
+            i=0
+            var dateValue = document.getElementById("date_value");
+            dateValue.innerHTML = dates_chirps[0];
+            sliderRange.value = i;
+            var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
+            var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+                layers: precip_type+':'+lyr,
+                format: 'image/png',
+                transparent: true,
+                styles: 'virtual_rain_style',
+            }).addTo(map);
+        }
+    }
+    else if (precip_type == 'cmorph'){
 
-//     var i = 0;
-//     var timer;
-//     function play(){
-//         timer = setTimeout(run, 10000);
+        var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[0];
+        var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+            layers: 'cmorph:'+lyr,
+            format: 'image/png',
+            transparent: true,
+            styles: 'virtual_rain_style',
+        });
+
+        var sliderRange = document.getElementById("dateRange");
+            sliderRange.max = dates.length - 1;
+            // Update the slider range value by time
+            sliderRange.oninput = function(){
+                dateValue.innerHTML = dates[this.value];
+                var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[this.value];
+                var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+                    layers: 'cmorph:'+lyr,
+                    format: 'image/png',
+                    transparent: true,
+                    styles: 'virtual_rain_style',
+                }).addTo(map);
+            };
+
+            var i = 0;
+            var timer;
+
+            function play(){
+                map.addLayer(wmsLayer);
+                timer = setTimeout(run, 3000);
+                function run(){ 
+                    if (map.haslayer == "wmsLayer"){
+                        map.removeLayer(wmsLayer)
+                    }
+                    dateValue.innerHTML = dates[i];
+                    var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[i];
+                    var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+                        layers: 'cmorph:'+lyr,
+                        format: 'image/png',
+                        transparent: true,
+                        styles: 'virtual_rain_style',
+                    });
+                    map.addLayer(wmsLayer);
+
+                    sliderRange.value = i; 
+                    i++
+                    // play();
+                    if (i < 5){
+                        play();
+                    } else {
+                        i=0
+                    }
+                }
+            }
+
+        var start = document.getElementById("play");
+        start.addEventListener("click", play);
+
+        var stopBtn = document.getElementById("pause");
+        stopBtn.addEventListener("click", pause);
+
+        var resetBtn = document.getElementById("reset");
+        resetBtn.addEventListener("click", reset);
+
+
+        function pause() {
+            clearTimeout(timer);
+        }
+
+        function reset(){
+            clearTimeout(timer);
+            i=0
+            var dateValue = document.getElementById("date_value");
+            dateValue.innerHTML = dates[0];
+            sliderRange.value = i;
+            var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[0];
+            var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+                layers: 'cmorph:'+lyr,
+                format: 'image/png',
+                transparent: true,
+                styles: 'virtual_rain_style',
+            });
+            map.addLayer(wmsLayer);
+        }
         
-//         function run(){
-            
-//             dateValue.innerHTML = lyrNames[i];
-//             var lyr = lyrNames[i];
-//             var wmsLayer = L.tileLayer.wms('http://localhost:8080/geoserver/wms?', {
-//                 layers: 'topp:'+lyr,
-//                 format: 'image/png',
-//                 transparent: true,
-//             }).addTo(map);
-
-//             dateValue.innerHTML = lyrNames[i];
-//             var lyr = lyrNames[i];
-
-//             sliderRange.value = i;
-//             i++
-//             if (i < 4){
-//                 play()
-//             }
-//         }
-//     }
-
-//     var start = document.getElementById("play");
-//     start.addEventListener("click", play);
-
-    
-
-// const ls = rg.toString()
-  
-// console.log(ls);
-// var lyr;
-// rg.forEach(function(entry) {
-//     // console.log(entry);
-//     lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+entry
-//     var wmsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-//     layers: 'cmorph:'+lyr
-// }).addTo(map);
-// });
-
-
-// var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+nd
-
-
+    } 
+}
 
 // Define country boundary style
 var adm0Style = {

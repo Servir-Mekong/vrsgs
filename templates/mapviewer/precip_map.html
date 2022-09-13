@@ -62,6 +62,17 @@
                             <div class="accordion-body">
                                 <!-- <label for="customRange3" class="form-label pt-5">Example range</label> -->
                                 <!-- <input type="range" class="form-range pt-5" min="0" max="0" step="1" id="dateRange"> -->
+                                <div class="precipType" id="precipType" >
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="precipOptions" id="chirps" value="chirps" checked>
+                                        <label class="form-check-label" for="chirps">CHIRPS</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="precipOptions" id="cmorph" value="cmorph">
+                                        <label class="form-check-label" for="cmorph">CMORPH</label>
+                                    </div>
+                                </div>
+                                
                                 <input type="range" class="custom-range pt-3" min="0" max="0" step="1" id="dateRange">
                                 <p class="fw-bold text-center pt-3" id="date_value"></p>
                                 <div class="pt-2 pb-3 text-center">
@@ -84,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item pt-2">
+                    <!-- <div class="accordion-item pt-2">
                         <h2 class="accordion-header" id="headingTwo">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 Virtual Stream Gauge
@@ -102,7 +113,7 @@
                                     <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
                                     <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
                                 </div>
-                                <!-- <label for="customRange3" class="form-label pt-5">Example range</label> -->
+                                <label for="customRange3" class="form-label pt-5">Example range</label> -->
                                 <!-- <input type="range" class="form-range pt-5" min="0" max="0" step="1" id="dateRange" value="0"> -->
                                 <!-- <input type="range" min="0" max="0" step="1" id="dateRange"> -->
                                 <!-- <p class="fw-bold text-center pt-3" id="date_value"></p>
@@ -111,9 +122,9 @@
                                     <button type="button" class="btn btn-outline-primary" id="pause"><i class="fa-solid fa-pause"></i></button>
                                     <button type="button" class="btn btn-outline-primary" id="reset_map"><i class="fa-solid fa-rotate"></i></button>
                                 </div> -->
-                            </div>
+                            <!-- </div>
                         </div>
-                    </div>
+                    </div> --> 
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@
 #ignore static files
 static/vendor/*
 static/data/*
+static/js/backup.js
 
 #ignore settings
 lhasa/local_settings.py
