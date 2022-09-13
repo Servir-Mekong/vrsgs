@@ -62,7 +62,7 @@
                             <div class="accordion-body">
                                 <!-- <label for="customRange3" class="form-label pt-5">Example range</label> -->
                                 <!-- <input type="range" class="form-range pt-5" min="0" max="0" step="1" id="dateRange"> -->
-                                <div class="precipType" id="precipType" >
+                                <div class="precipType mb-3" id="precipType" >
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="precipOptions" id="chirps" value="chirps" checked>
                                         <label class="form-check-label" for="chirps">CHIRPS</label>
@@ -71,16 +71,61 @@
                                         <input class="form-check-input" type="radio" name="precipOptions" id="cmorph" value="cmorph">
                                         <label class="form-check-label" for="cmorph">CMORPH</label>
                                     </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="precipOptions" id="imerg" value="imerg">
+                                        <label class="form-check-label" for="imerg">IMERG</label>
+                                    </div>
+                                </div>
+                                <div id="chirpsSlider">
+                                    <input type="range" class="custom-range pt-3" min="0" max="0" step="1" id="dateRangeCHIRPS">
+                                    <p class="fw-bold text-center pt-3" id="date_value_chirps"></p>
+                                    <div class="pt-2 pb-3 text-center">
+                                        <div class="btn-group d-flex" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="radioCHIRPS" id="playCHIRPS" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="playCHIRPS" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Play"><i class="fa-solid fa-play"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioCHIRPS" id="pauseCHIRPS" autocomplete="off" checked>
+                                            <label class="btn btn-outline-dark" for="pauseCHIRPS" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pause"><i class="fa-solid fa-pause"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioCHIRPS" id="resetCHIRPS" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="resetCHIRPS" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset"><i class="fa-solid fa-rotate"></i></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="cmorphSlider">
+                                    <input type="range" class="custom-range pt-3" min="0" max="0" step="1" id="dateRangeCMORPH">
+                                    <p class="fw-bold text-center pt-3" id="date_value_cmorph"></p>
+                                    <div class="pt-2 pb-3 text-center">
+                                        <div class="btn-group d-flex" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="radioCMORPH" id="playCMORPH" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="playCMORPH" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Play"><i class="fa-solid fa-play"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioCMORPH" id="pauseCMORPH" autocomplete="off" checked>
+                                            <label class="btn btn-outline-dark" for="pauseCMORPH" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pause"><i class="fa-solid fa-pause"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioCMORPH" id="resetCMORPH" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="resetCMORPH" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset"><i class="fa-solid fa-rotate"></i></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="imergSlider">
+                                    <input type="range" class="custom-range pt-3" min="0" max="0" step="1" id="dateRangeIMERG">
+                                    <p class="fw-bold text-center pt-3" id="date_value_imerg"></p>
+                                    <div class="pt-2 pb-3 text-center">
+                                        <div class="btn-group d-flex" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="radioIMERG" id="playIMERG" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="playIMERG" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Play"><i class="fa-solid fa-play"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioIMERG" id="pauseIMERG" autocomplete="off" checked>
+                                            <label class="btn btn-outline-dark" for="pauseIMERG" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pause"><i class="fa-solid fa-pause"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioIMERG" id="resetIMERG" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="resetIMERG" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset"><i class="fa-solid fa-rotate"></i></label>
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <input type="range" class="custom-range pt-3" min="0" max="0" step="1" id="dateRange">
-                                <p class="fw-bold text-center pt-3" id="date_value"></p>
-                                <div class="pt-2 pb-3 text-center">
-                                    <!-- <div class="btn-group d-flex" role="group">
-                                        <button type="button" class="btn btn-outline-dark" id="play" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Play"><i class="fa-solid fa-play"></i></button>
-                                        <button type="button" class="btn btn-outline-dark active" id="pause" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pause"><i class="fa-solid fa-pause"></i></button>
-                                        <button type="button" class="btn btn-outline-dark" id="reset" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset"><i class="fa-solid fa-rotate"></i></button>
-                                    </div> -->
+                                <!-- <div class="pt-2 pb-3 text-center">
                                     <div class="btn-group d-flex" role="group" aria-label="Basic radio toggle button group">
                                         <input type="radio" class="btn-check" name="btnradio" id="play" autocomplete="off">
                                         <label class="btn btn-outline-dark" for="play" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Play"><i class="fa-solid fa-play"></i></label>
@@ -91,7 +136,7 @@
                                         <input type="radio" class="btn-check" name="btnradio" id="reset" autocomplete="off">
                                         <label class="btn btn-outline-dark" for="reset" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset"><i class="fa-solid fa-rotate"></i></label>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
