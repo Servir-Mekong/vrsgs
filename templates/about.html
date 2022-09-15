@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About HYDRO-MET BOX{% endblock %}
+
+{% block container %}
+
+{% include 'navigation.html' %}
+
+<!-- <div class="bg-light ms-0 me-0 ps-0 pe-0 mt-0 pt-0 p-0">
+    <div class="about-jumbotron text-left">
+        <div class="about-jumbotron-card">
+            <div class="container">
+                <h1 class="text-center pt-5 mb-5">About HYDRO-MET BOX</h1> 
+            </div> 
+        </div>
+    </div>
+</div> -->
+<div class="card card-body bg-white border-0 mt-5">
+    <h1 class="h1 fw-bold text-center pt-5">About HYDRO-MET BOX</h1> 
+    <h5 class="text-center">_________</h5>
+</div>
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-md-8">
+            <p class="fs-5 p-4 mt-5 lh-base" style="background-color: rgba(199, 236, 249, 0.5); border-left: 5px solid darkblue; color: navy;">This service provides improved near real-time rainfall and stream height data products from publicly available satellite measurements by creation of a virtual network of rain gauges and stream gauges at points widely distributed over the entire Lower Mekong Region.</p>
+            <p class="fs-5 mt-5 lh-base">The service leverages a wider range of ground measurements to ensure better calibration of satellite derived rainfall estimations (GPM-IMERG, TRMM, CMORPH, RFE2, GSMAP) and water elevation estimations (Jason-2/3, Sentinel-3 data products); Increased consistency and standardization of data formats available to end users; More convenient access to data products from the rainfall estimation missions and the altimetry profiling missions; Detailed guidance on using these valuable data streams for a variety of applications including now-casting, flood forecasting/warnings, water resource accounting/management and landslide early warnings/risk assessment/management, and river basin/reservoir management, transboundary river flow management, etc.</p>
+        </div>
+        <div class="col-md-4">
+            <img class="img-fluid m-5" src="/static/images/about-img.png" alt="" srcset="">
+        </div>
+    </div>
+    {% include 'partners.html' %}
+</div>
+
+{% include 'footer.html' %}
+
+{% endblock container %}
