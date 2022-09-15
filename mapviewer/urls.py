@@ -5,4 +5,5 @@ urlpatterns = [
     path('', views.HomePage.as_view(), name='home'),
     path('about/', views.AboutPage.as_view(), name='about'),
     path('precipitation-map/', views.PrecipMap.as_view(), name='precipitation-map'),
+    path('chirps-gefs-map/', views.CHIRPSGEFSMap.as_view(), name='chirps-gefs-map'),
 ]

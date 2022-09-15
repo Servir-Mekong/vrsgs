@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{% static 'vendor/components-font-awesome/css/all.min.css' %}">
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}">  
+    <!-- Leaflet CSS-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <!-- Custom CSS files -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/navigation.css' %}">
@@ -28,9 +30,19 @@
 <body>
 
     {% block container %} {% endblock container%}
+
+    <!-- Load Data -->
+    <script src="{% static 'data/adm0.geojson' %}"></script>
+    <script src="{% static 'data/adm1.geojson' %}"></script>
+    <script src="{% static 'data/adm2.geojson' %}"></script>
+
+    <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<!-- Bootstrap JS -->
 	<script src="{% static 'vendor/bootstrap/dist/js/bootstrap.bundle.min.js'  %}"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="{% static 'js/index.js' %}"></script>
     {% block extra_script %}{% endblock %}
 </body>
 </html>

@@ -150,363 +150,567 @@ for (var i = 0; i < basemap_list.length; i++) {
 
 /** End Basemap Panel */
 
-$('#chirpsSlider').show();
-$('#cmorphSlider').hide();
-$('#imergSlider').hide();
-
-function getDatesInRange(startDate, endDate) {
-    const date = new Date(startDate.getTime());
-    // Exclude start date
-    date.setDate(date.getDate() + 1);
-    const dates = [];
-    // Exclude end date
-    while (date < endDate) {
-
-      dates.push(new Date(date).toISOString().split('T')[0].replace("-", "").replace("-", ""));
-      date.setDate(date.getDate() + 1);
-    }
-    return dates;
-}
-
-function getDatesInRangeCHIRPS(startDate, endDate) {
-    const date = new Date(startDate.getTime());
-    // Exclude start date
-    date.setDate(date.getDate() + 1);
-    const dates = [];
-    // Exclude end date
-    while (date < endDate) {
-
-      dates.push(new Date(date).toISOString().split('T')[0].replace("-", ".").replace("-", ""));
-      date.setDate(date.getDate() + 1);
-    }
-    return dates;
-}
-  
-const td = new Date(); // "2022-08-14"
-const priorDate = td.setDate(td.getDate() - 5)
-// const nd = new Date(priorDate).toISOString().split('T')[0].replace("-", "").replace("-", "");
-
-const td2 = new Date();
-const endDate = td2.setDate(td2.getDate() + 1)
-
-const d1 =  new Date(priorDate);
-const d2 = new Date(endDate); //"2022-08-15"
-
-const dates = getDatesInRange(d1, d2)
-const dates_chirps = getDatesInRangeCHIRPS(d1, d2)
-// console.log(dates);
-
-var dateValueCHIRPS = document.getElementById("date_value_chirps");
-dateValueCHIRPS.innerHTML = dates_chirps[0];
-
-var chirpsLayer, cmorphLayer, imergLayer;
-var chirps_lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
-// console.log(lyr)
-chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-    layers: 'chirps:'+chirps_lyr,
-    format: 'image/png',
-    transparent: true,
-    styles: 'virtual_rain_style',
-}).addTo(map);
-
-var sliderRangeCHIRPS = document.getElementById("dateRangeCHIRPS");
-sliderRangeCHIRPS.max = dates_chirps.length - 1;
-sliderRangeCHIRPS.oninput = function(){
-    dateValueCHIRPS.innerHTML = dates_chirps[this.value];
-    var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[this.value];
-    chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-        layers: 'chirps:'+lyr,
-        format: 'image/png',
-        transparent: true,
-        styles: 'virtual_rain_style',
-    }).addTo(map);
+// Define country boundary style
+var adm0Style = {
+    color: "#fff",
+    weight: 0.8,
+    fillOpacity: 0.0,
+    fillColor: '#ffc107'
 };
+var adm1Style = {
+    color: "#eee",
+    weight: 0.6,
+    fillOpacity: 0.0,
+    fillColor: '#ffc107'
+};
+var adm2Style = {
+    color: "#FFDEAD",
+    weight: 0.5,
+    fillOpacity: 0.0,
+    fillColor: "#ffc107",
+    cursor: 'pointer'
+};
+// highlight admin feature style
+var highlightStyle = {
+    color: '#FFA500', 
+    weight: 2.5,
+    fillOpacity: 0.0,
+    fillColor: '#ffc107' 
+};
+var adm0_layer = L.geoJson(adm0, {
+    style: adm0Style,
+    onEachFeature: function(feature, admin0Layer) {
+        admin0Layer.bindTooltip(feature.properties.NAME_0);                
+    } 
+});
 
-var i = 0;
-var timer;
-function play_chirps(){
-    timer = setTimeout(run, 3000);
-    function run(){ 
-        dateValueCHIRPS.innerHTML = dates_chirps[i];
-        var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[i];
-        chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-            layers: 'chirps:'+lyr,
-            format: 'image/png',
-            transparent: true,
-            styles: 'virtual_rain_style',
-        }).addTo(map);
-        var sliderRangeCHIRPS = document.getElementById("dateRangeCHIRPS");
-        sliderRangeCHIRPS.value = i; 
-        i++
-        // play();
-        if (i < 5){
-            play_chirps();
-        } else {
-            i=0
-        }
+var adm1_layer = L.geoJson(adm1, {
+    style: adm1Style,
+    onEachFeature: function(feature, admin1Layer) {
+        admin1Layer.bindTooltip(feature.properties.NAME_1);                 
+    } 
+});
+var adm2_layer = L.geoJson(adm2, {
+    style: adm2Style,
+    onEachFeature: function(feature, adm2Layer){
+
+        // Display a popup with the name of the county.
+        var district = feature.properties.NAME_2;
+        var province = feature.properties.NAME_1;
+        var country = feature.properties.NAME_0;
+        var f_0_15 = feature.properties.F_0_15;
+        var f_15_65 = feature.properties.F_15_65;
+        var f_above_65 = feature.properties.F__65;
+        var f_total = f_0_15 + f_15_65 + f_above_65;
+        var m_0_15 = feature.properties.M_0_15;
+        var m_15_65 = feature.properties.M_15_65;
+        var m_above_65 = feature.properties.M__65;    
+        var m_total = m_0_15+m_15_65+m_above_65;
+        var hospitals = feature.properties.Hospitals;
+        var primary = feature.properties.Primary;
+        var secondary = feature.properties.Secondary;
+        var trunks = feature.properties.Trunks;
+
+        adm2Layer.on('mouseover', function (e) {
+            this.setStyle(highlightStyle);
+            this.bindPopup( 
+                '<h4 style="margin-top: 20px; font-weight: bold; margin-bottom: 0px;">'+district+': '+province+', '+country+'</h4>'+
+                '<div class="table-responsive adm2-popup-table">'+
+                    '<table class="table">'+
+                        '<thead>'+
+                            '<tr>'+
+                                '<th>'+"Population"+'</th>'+
+                                '<th>'+"Female"+'</th>'+
+                                '<th>'+"Male"+'</th>'+
+                            '</tr>'+
+                        '</thead>'+
+                        '<tbody>' +
+                            '<tr>'+
+                                '<td>'+"Age 0-15"+'</td>'+
+                                '<td>'+f_0_15+'</td>'+
+                                '<td>'+m_0_15+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>'+"Age 15-65"+'</td>'+
+                                '<td>'+f_15_65+'</td>'+
+                                '<td>'+m_15_65+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>'+"Age >65"+'</td>'+
+                                '<td>'+f_above_65+'</td>'+
+                                '<td>'+m_above_65+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>'+"Total"+'</td>'+
+                                '<td>'+f_total+'</td>'+
+                                '<td>'+m_total+'</td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                        '<thead>'+
+                            '<tr>'+
+                                '<th>'+"Health Facilities"+'</th>'+
+                                '<th>'+"No."+'</th>'+
+                                '<th>'+""+'</th>'+
+                            '</tr>'+
+                        '</thead>'+
+                        '<tbody>'+
+                            '<tr>'+
+                                '<td>'+ "Hospitals" +'</td>'+
+                                '<td>'+ hospitals +'</td>'+
+                                '<td>'+""+'</td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                        '<thead>'+
+                            '<tr>'+
+                                '<th>'+"Roads"+'</th>'+
+                                '<th>'+"No."+'</th>'+
+                                '<th>'+""+'</th>'+
+                            '</tr>'+
+                        '</thead>'+
+                        '<tbody>'+
+                            '<tr>'+
+                                '<td>'+ "Primary" +'</td>'+
+                                '<td>'+ primary +'</td>'+
+                                '<td>'+""+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>'+ "Secondary" +'</td>'+
+                                '<td>'+ secondary +'</td>'+
+                                '<td>'+""+'</td>'+
+                            '</tr>'+
+                            '<tr>'+
+                                '<td>'+ "Trunks" +'</td>'+
+                                '<td>'+ trunks +'</td>'+
+                                '<td>'+""+'</td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table>'+
+                '</div>'
+            );
+            // this.bindTooltip(feature.properties.NAME_2);
+        }); 
+        adm2Layer.on('mouseout', function (e) {
+            this.setStyle(adm2Style);
+        }); 
+        adm2Layer.on('click', function(e){
+            map.fitBounds(e.target.getBounds());
+            // animate: true;
+        });        
     }
-}
-var start_chirps = document.getElementById("playCHIRPS");
-start_chirps.addEventListener("click", play_chirps);
-
-var stop_chirps = document.getElementById("pauseCHIRPS");
-stop_chirps.addEventListener("click", pause_chirps);
-
-var res_chirps = document.getElementById("resetCHIRPS");
-res_chirps.addEventListener("click", reset_chirps);
-
-function pause_chirps() {
-    clearTimeout(timer);
-}
-function reset_chirps(){
-    clearTimeout(timer);
-    i=0
-    var dateValue = document.getElementById("date_value_chirps");
-    dateValue.innerHTML = dates_chirps[0];
-    var sliderRangeCHIRPS = document.getElementById("dateRangeCHIRPS");
-    sliderRangeCHIRPS.value = i;
-    var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
-    chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-        layers: 'chirps:'+lyr,
-        format: 'image/png',
-        transparent: true,
-        styles: 'virtual_rain_style',
-    }).addTo(map);
-}
-
-$('input[type=radio][name=precipOptions]').change(function() {
-    // if (map.hasLayer(chirpsLayer)){
-    //     map.removeLayer(chirpsLayer)
-    // }
-    // if (map.hasLayer(cmorphLayer)){
-    //     map.removeLayer(cmorphLayer)
-    // }
-    // if (map.hasLayer(imergLayer)){
-    //     map.removeLayer(imergLayer)
-    // }
-    map.eachLayer(function (layer) {
-        map.removeLayer(layer);
-    });  
-    map.addLayer(basemap_layer);
-    var precip_type = this.value;
-    if (precip_type == 'chirps') {
-        $('#chirpsSlider').show();
-        $('#cmorphSlider').hide();
-        $('#imergSlider').hide();
-        dateValueCHIRPS.innerHTML = dates_chirps[0];
-        var chirps_lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
-        chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-            layers: 'chirps:'+chirps_lyr,
-            format: 'image/png',
-            transparent: true,
-            styles: 'virtual_rain_style',
-        }).addTo(map);
-        var sliderRangeCHIRPS = document.getElementById("dateRangeCHIRPS");
-        sliderRangeCHIRPS.max = dates_chirps.length - 1;
-        sliderRangeCHIRPS.value = 0;
-        sliderRangeCHIRPS.oninput = function(){
-            if (map.hasLayer(chirpsLayer)){
-                map.removeLayer(chirpsLayer)
-            }
-            if (map.hasLayer(cmorphLayer)){
-                map.removeLayer(cmorphLayer)
-            }
-            if (map.hasLayer(imergLayer)){
-                map.removeLayer(imergLayer)
-            }
-            dateValueCHIRPS.innerHTML = dates_chirps[this.value];
-            var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[this.value];
-            chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-                layers: precip_type+':'+lyr,
-                format: 'image/png',
-                transparent: true,
-                styles: 'virtual_rain_style',
-            }).addTo(map);
-        };
+});
+$('input[type=checkbox][name=adm0_toggle]').click(function(){
+    if(this.checked) {
+        map.addLayer(adm0_layer);
+    } else {
+        map.removeLayer(adm0_layer);
     }
-    else if (precip_type == 'cmorph') {
-        $('#cmorphSlider').show();
-        $('#chirpsSlider').hide();
-        $('#imergSlider').hide();
-        var dateValueCMORPH = document.getElementById("date_value_cmorph");
-        dateValueCMORPH.innerHTML = dates[0];
-        var sliderRangeCMORPH = document.getElementById("dateRangeCMORPH");
-        sliderRangeCMORPH.max = dates.length - 1;
-        sliderRangeCMORPH.value = 0;
-        var cmorph_lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[0];
-        cmorphLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-            layers: 'cmorph:'+cmorph_lyr,
-            format: 'image/png',
-            transparent: true,
-            styles: 'virtual_rain_style',
-        }).addTo(map);
-        
-        // Update the slider range value by time
-        sliderRangeCMORPH.oninput = function(){
-            if (map.hasLayer(chirpsLayer)){
-                map.removeLayer(chirpsLayer)
-            }
-            if (map.hasLayer(cmorphLayer)){
-                map.removeLayer(cmorphLayer)
-            }
-            if (map.hasLayer(imergLayer)){
-                map.removeLayer(imergLayer)
-            }
-            dateValueCMORPH.innerHTML = dates[this.value];
-            var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[this.value];
-            cmorphLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-                layers: 'cmorph:'+lyr,
-                format: 'image/png',
-                transparent: true,
-                styles: 'virtual_rain_style',
-            }).addTo(map);
-        };
+});
+$('input[type=checkbox][name=adm1_toggle]').click(function(){
+    if(this.checked) {
+        map.addLayer(adm1_layer);
+    } else {
+        map.removeLayer(adm1_layer);
     }
-    else if (precip_type == 'imerg') {
-        $('#imergSlider').show();
-        $('#chirpsSlider').hide();
-        $('#cmorphSlider').hide();
-        var dateValueIMERG = document.getElementById("date_value_imerg");
-        dateValueIMERG.innerHTML = dates[0];
-
-        var sliderRangeIMERG = document.getElementById("dateRangeIMERG");
-        sliderRangeIMERG.max = dates.length - 1;
-        sliderRangeIMERG.value = 0
-
-        var imerg_lyr = 'MK_3B-DAY-E.MS.MRG.3IMERG.' + dates[0] + '-S000000-E235959.V05';
-        imergLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-            layers: 'imerg:'+imerg_lyr,
-            format: 'image/png',
-            transparent: true,
-            styles: 'virtual_rain_style',
-        }).addTo(map);
-        
-        // Update the slider range value by time
-        sliderRangeIMERG.oninput = function(){
-            if (map.hasLayer(chirpsLayer)){
-                map.removeLayer(chirpsLayer)
-            }
-            if (map.hasLayer(cmorphLayer)){
-                map.removeLayer(cmorphLayer)
-            }
-            if (map.hasLayer(imergLayer)){
-                map.removeLayer(imergLayer)
-            }
-            dateValueIMERG.innerHTML = dates[this.value];
-            var lyr = 'MK_3B-DAY-E.MS.MRG.3IMERG.' + dates[0] + '-S000000-E235959.V05';
-            imergLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-                layers: 'imerg:'+lyr,
-                format: 'image/png',
-                transparent: true,
-                styles: 'virtual_rain_style',
-            }).addTo(map);
-        };
+});
+$('input[type=checkbox][name=adm2_toggle]').click(function(){
+    if(this.checked) {
+        map.addLayer(adm2_layer);
+    } else {
+        map.removeLayer(adm2_layer);
     }
 });
 
-function play_cmorph(){
-    timer = setTimeout(run, 3000);
-    function run(){ 
-        var dateValueCMORPH = document.getElementById("date_value_cmorph");
-        dateValueCMORPH.innerHTML = dates[i];
-        var cmorph_lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[i];
-        cmorphLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-            layers: 'cmorph:'+cmorph_lyr,
-            format: 'image/png',
-            transparent: true,
-            styles: 'virtual_rain_style',
-        }).addTo(map);
-        var sliderRangeCMORPH = document.getElementById("dateRangeCMORPH");
-        sliderRangeCMORPH.max = dates.length - 1;
-        sliderRangeCMORPH.value = i; 
-        i++
-        // play();
-        if (i < 5){
-            play_cmorph();
-        } else {
-            i=0
-        }
+map.on('mouseover zoomend', function() {
+    if(map.getZoom() >= 7 ) {
+        map.removeLayer(adm0_layer);
+        $("#adm0_toggle").prop("checked", false);
+    } else {
+        map.addLayer(adm0_layer);
+        $("#adm0_toggle").prop("checked", true);
     }
-}
-var start_cmorph = document.getElementById("playCMORPH");
-start_cmorph.addEventListener("click", play_cmorph);
-
-var stop_cmorph = document.getElementById("pauseCMORPH");
-stop_cmorph.addEventListener("click", pause_cmorph);
-
-var res_cmorph = document.getElementById("resetCMORPH");
-res_cmorph.addEventListener("click", reset_cmorph);
-
-function pause_cmorph() {
-    clearTimeout(timer);
-}
-function reset_cmorph(){
-    clearTimeout(timer);
-    i=0
-    var dateValue = document.getElementById("date_value_cmorph");
-    dateValue.innerHTML = dates[0];
-    var sliderRangeCMORPH = document.getElementById("dateRangeCMORPH");
-    sliderRangeCMORPH.value = i;
-    var cmorph_lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[0];
-    cmorphLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-        layers: 'cmorph:'+cmorph_lyr,
-        format: 'image/png',
-        transparent: true,
-        styles: 'virtual_rain_style',
-    }).addTo(map);
-}
-
-function play_imerg(){
-    timer = setTimeout(run, 3000);
-    function run(){ 
-        var dateValueIMERG = document.getElementById("date_value_imerg");
-        dateValueIMERG.innerHTML = dates[i];
-        var imerg_lyr = 'MK_3B-DAY-E.MS.MRG.3IMERG.' + dates[i] + '-S000000-E235959.V05';
-        imergLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-            layers: 'imerg:'+imerg_lyr,
-            format: 'image/png',
-            transparent: true,
-            styles: 'virtual_rain_style',
-        }).addTo(map);
-        var sliderRangeIMERG = document.getElementById("dateRangeIMERG");
-        sliderRangeIMERG.max = dates.length - 1;
-        sliderRangeIMERG.value = i; 
-        i++
-        // play();
-        if (i < 5){
-            play_imerg();
-        } else {
-            i=0
-        }
+});
+map.on('mouseover zoomend', function() {
+    if(map.getZoom() <= 6) {
+        map.removeLayer(adm1_layer);
+        $("#adm1_toggle").prop("checked", false);
+    } else {
+        map.addLayer(adm1_layer);
+        $("#adm1_toggle").prop("checked", true);
     }
-}
-var start_imerg = document.getElementById("playIMERG");
-start_imerg.addEventListener("click", play_imerg);
+});
+map.on('mouseover zoomend', function() {
+    if(map.getZoom() >= 8) {
+        map.removeLayer(adm1_layer);
+        $("#adm1_toggle").prop("checked", false);
+    }
+});
+map.on('mouseover zoomend', function() {
+    if(map.getZoom() < 8) {
+        map.removeLayer(adm2_layer);
+        $("#adm2_toggle").prop("checked", false);
+    } else {
+        map.addLayer(adm2_layer);
+        $("#adm2_toggle").prop("checked", true);
+    }
+});
 
-var stop_imerg = document.getElementById("pauseIMERG");
-stop_imerg.addEventListener("click", pause_imerg);
+// $('#chirpsSlider').show();
+// $('#cmorphSlider').hide();
+// $('#imergSlider').hide();
 
-var res_imerg = document.getElementById("resetIMERG");
-res_imerg.addEventListener("click", reset_imerg);
+// function getDatesInRange(startDate, endDate) {
+//     const date = new Date(startDate.getTime());
+//     // Exclude start date
+//     date.setDate(date.getDate() + 1);
+//     const dates = [];
+//     // Exclude end date
+//     while (date < endDate) {
 
-function pause_imerg() {
-    clearTimeout(timer);
-}
-function reset_imerg(){
-    clearTimeout(timer);
-    i=0
-    var dateValue = document.getElementById("date_value_imerg");
-    dateValue.innerHTML = dates[0];
-    var sliderRangeIMERG = document.getElementById("dateRangeIMERG");
-    sliderRangeIMERG.value = i;
-    var imerg_lyr = 'MK_3B-DAY-E.MS.MRG.3IMERG.' + dates[0] + '-S000000-E235959.V05';
-    imergLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
-        layers: 'imerg:'+imerg_lyr,
-        format: 'image/png',
-        transparent: true,
-        styles: 'virtual_rain_style',
-    }).addTo(map);
-}
+//       dates.push(new Date(date).toISOString().split('T')[0].replace("-", "").replace("-", ""));
+//       date.setDate(date.getDate() + 1);
+//     }
+//     return dates;
+// }
+
+// function getDatesInRangeCHIRPS(startDate, endDate) {
+//     const date = new Date(startDate.getTime());
+//     // Exclude start date
+//     date.setDate(date.getDate() + 1);
+//     const dates = [];
+//     // Exclude end date
+//     while (date < endDate) {
+
+//       dates.push(new Date(date).toISOString().split('T')[0].replace("-", ".").replace("-", ""));
+//       date.setDate(date.getDate() + 1);
+//     }
+//     return dates;
+// }
+  
+// const td = new Date(); // "2022-08-14"
+// const priorDate = td.setDate(td.getDate() - 5)
+// // const nd = new Date(priorDate).toISOString().split('T')[0].replace("-", "").replace("-", "");
+
+// const td2 = new Date();
+// const endDate = td2.setDate(td2.getDate() + 1)
+
+// const d1 =  new Date(priorDate);
+// const d2 = new Date(endDate); //"2022-08-15"
+
+// const dates = getDatesInRange(d1, d2)
+// const dates_chirps = getDatesInRangeCHIRPS(d1, d2)
+// // console.log(dates);
+
+// var dateValueCHIRPS = document.getElementById("date_value_chirps");
+// dateValueCHIRPS.innerHTML = dates_chirps[0];
+
+// var chirpsLayer, cmorphLayer, imergLayer;
+// var chirps_lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
+// // console.log(lyr)
+// chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//     layers: 'chirps:'+chirps_lyr,
+//     format: 'image/png',
+//     transparent: true,
+//     styles: 'virtual_rain_style',
+// }).addTo(map);
+
+// var sliderRangeCHIRPS = document.getElementById("dateRangeCHIRPS");
+// sliderRangeCHIRPS.max = dates_chirps.length - 1;
+// sliderRangeCHIRPS.oninput = function(){
+//     dateValueCHIRPS.innerHTML = dates_chirps[this.value];
+//     var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[this.value];
+//     chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//         layers: 'chirps:'+lyr,
+//         format: 'image/png',
+//         transparent: true,
+//         styles: 'virtual_rain_style',
+//     }).addTo(map);
+// };
+
+// var i = 0;
+// var timer;
+// function play_chirps(){
+//     timer = setTimeout(run, 3000);
+//     function run(){ 
+//         dateValueCHIRPS.innerHTML = dates_chirps[i];
+//         var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[i];
+//         chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//             layers: 'chirps:'+lyr,
+//             format: 'image/png',
+//             transparent: true,
+//             styles: 'virtual_rain_style',
+//         }).addTo(map);
+//         var sliderRangeCHIRPS = document.getElementById("dateRangeCHIRPS");
+//         sliderRangeCHIRPS.value = i; 
+//         i++
+//         // play();
+//         if (i < 5){
+//             play_chirps();
+//         } else {
+//             i=0
+//         }
+//     }
+// }
+// var start_chirps = document.getElementById("playCHIRPS");
+// start_chirps.addEventListener("click", play_chirps);
+
+// var stop_chirps = document.getElementById("pauseCHIRPS");
+// stop_chirps.addEventListener("click", pause_chirps);
+
+// var res_chirps = document.getElementById("resetCHIRPS");
+// res_chirps.addEventListener("click", reset_chirps);
+
+// function pause_chirps() {
+//     clearTimeout(timer);
+// }
+// function reset_chirps(){
+//     clearTimeout(timer);
+//     i=0
+//     var dateValue = document.getElementById("date_value_chirps");
+//     dateValue.innerHTML = dates_chirps[0];
+//     var sliderRangeCHIRPS = document.getElementById("dateRangeCHIRPS");
+//     sliderRangeCHIRPS.value = i;
+//     var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
+//     chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//         layers: 'chirps:'+lyr,
+//         format: 'image/png',
+//         transparent: true,
+//         styles: 'virtual_rain_style',
+//     }).addTo(map);
+// }
+
+// $('input[type=radio][name=precipOptions]').change(function() {
+//     // if (map.hasLayer(chirpsLayer)){
+//     //     map.removeLayer(chirpsLayer)
+//     // }
+//     // if (map.hasLayer(cmorphLayer)){
+//     //     map.removeLayer(cmorphLayer)
+//     // }
+//     // if (map.hasLayer(imergLayer)){
+//     //     map.removeLayer(imergLayer)
+//     // }
+//     map.eachLayer(function (layer) {
+//         map.removeLayer(layer);
+//     });  
+//     map.addLayer(basemap_layer);
+//     var precip_type = this.value;
+//     if (precip_type == 'chirps') {
+//         $('#chirpsSlider').show();
+//         $('#cmorphSlider').hide();
+//         $('#imergSlider').hide();
+//         dateValueCHIRPS.innerHTML = dates_chirps[0];
+//         var chirps_lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
+//         chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//             layers: 'chirps:'+chirps_lyr,
+//             format: 'image/png',
+//             transparent: true,
+//             styles: 'virtual_rain_style',
+//         }).addTo(map);
+//         var sliderRangeCHIRPS = document.getElementById("dateRangeCHIRPS");
+//         sliderRangeCHIRPS.max = dates_chirps.length - 1;
+//         sliderRangeCHIRPS.value = 0;
+//         sliderRangeCHIRPS.oninput = function(){
+//             if (map.hasLayer(chirpsLayer)){
+//                 map.removeLayer(chirpsLayer)
+//             }
+//             if (map.hasLayer(cmorphLayer)){
+//                 map.removeLayer(cmorphLayer)
+//             }
+//             if (map.hasLayer(imergLayer)){
+//                 map.removeLayer(imergLayer)
+//             }
+//             dateValueCHIRPS.innerHTML = dates_chirps[this.value];
+//             var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[this.value];
+//             chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//                 layers: precip_type+':'+lyr,
+//                 format: 'image/png',
+//                 transparent: true,
+//                 styles: 'virtual_rain_style',
+//             }).addTo(map);
+//         };
+//     }
+//     else if (precip_type == 'cmorph') {
+//         $('#cmorphSlider').show();
+//         $('#chirpsSlider').hide();
+//         $('#imergSlider').hide();
+//         var dateValueCMORPH = document.getElementById("date_value_cmorph");
+//         dateValueCMORPH.innerHTML = dates[0];
+//         var sliderRangeCMORPH = document.getElementById("dateRangeCMORPH");
+//         sliderRangeCMORPH.max = dates.length - 1;
+//         sliderRangeCMORPH.value = 0;
+//         var cmorph_lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[0];
+//         cmorphLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//             layers: 'cmorph:'+cmorph_lyr,
+//             format: 'image/png',
+//             transparent: true,
+//             styles: 'virtual_rain_style',
+//         }).addTo(map);
+        
+//         // Update the slider range value by time
+//         sliderRangeCMORPH.oninput = function(){
+//             if (map.hasLayer(chirpsLayer)){
+//                 map.removeLayer(chirpsLayer)
+//             }
+//             if (map.hasLayer(cmorphLayer)){
+//                 map.removeLayer(cmorphLayer)
+//             }
+//             if (map.hasLayer(imergLayer)){
+//                 map.removeLayer(imergLayer)
+//             }
+//             dateValueCMORPH.innerHTML = dates[this.value];
+//             var lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[this.value];
+//             cmorphLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//                 layers: 'cmorph:'+lyr,
+//                 format: 'image/png',
+//                 transparent: true,
+//                 styles: 'virtual_rain_style',
+//             }).addTo(map);
+//         };
+//     }
+//     else if (precip_type == 'imerg') {
+//         $('#imergSlider').show();
+//         $('#chirpsSlider').hide();
+//         $('#cmorphSlider').hide();
+//         var dateValueIMERG = document.getElementById("date_value_imerg");
+//         dateValueIMERG.innerHTML = dates[0];
+
+//         var sliderRangeIMERG = document.getElementById("dateRangeIMERG");
+//         sliderRangeIMERG.max = dates.length - 1;
+//         sliderRangeIMERG.value = 0
+
+//         var imerg_lyr = 'MK_3B-DAY-E.MS.MRG.3IMERG.' + dates[0] + '-S000000-E235959.V05';
+//         imergLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//             layers: 'imerg:'+imerg_lyr,
+//             format: 'image/png',
+//             transparent: true,
+//             styles: 'virtual_rain_style',
+//         }).addTo(map);
+        
+//         // Update the slider range value by time
+//         sliderRangeIMERG.oninput = function(){
+//             if (map.hasLayer(chirpsLayer)){
+//                 map.removeLayer(chirpsLayer)
+//             }
+//             if (map.hasLayer(cmorphLayer)){
+//                 map.removeLayer(cmorphLayer)
+//             }
+//             if (map.hasLayer(imergLayer)){
+//                 map.removeLayer(imergLayer)
+//             }
+//             dateValueIMERG.innerHTML = dates[this.value];
+//             var lyr = 'MK_3B-DAY-E.MS.MRG.3IMERG.' + dates[0] + '-S000000-E235959.V05';
+//             imergLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//                 layers: 'imerg:'+lyr,
+//                 format: 'image/png',
+//                 transparent: true,
+//                 styles: 'virtual_rain_style',
+//             }).addTo(map);
+//         };
+//     }
+// });
+
+// function play_cmorph(){
+//     timer = setTimeout(run, 3000);
+//     function run(){ 
+//         var dateValueCMORPH = document.getElementById("date_value_cmorph");
+//         dateValueCMORPH.innerHTML = dates[i];
+//         var cmorph_lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[i];
+//         cmorphLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//             layers: 'cmorph:'+cmorph_lyr,
+//             format: 'image/png',
+//             transparent: true,
+//             styles: 'virtual_rain_style',
+//         }).addTo(map);
+//         var sliderRangeCMORPH = document.getElementById("dateRangeCMORPH");
+//         sliderRangeCMORPH.max = dates.length - 1;
+//         sliderRangeCMORPH.value = i; 
+//         i++
+//         // play();
+//         if (i < 5){
+//             play_cmorph();
+//         } else {
+//             i=0
+//         }
+//     }
+// }
+// var start_cmorph = document.getElementById("playCMORPH");
+// start_cmorph.addEventListener("click", play_cmorph);
+
+// var stop_cmorph = document.getElementById("pauseCMORPH");
+// stop_cmorph.addEventListener("click", pause_cmorph);
+
+// var res_cmorph = document.getElementById("resetCMORPH");
+// res_cmorph.addEventListener("click", reset_cmorph);
+
+// function pause_cmorph() {
+//     clearTimeout(timer);
+// }
+// function reset_cmorph(){
+//     clearTimeout(timer);
+//     i=0
+//     var dateValue = document.getElementById("date_value_cmorph");
+//     dateValue.innerHTML = dates[0];
+//     var sliderRangeCMORPH = document.getElementById("dateRangeCMORPH");
+//     sliderRangeCMORPH.value = i;
+//     var cmorph_lyr = 'MK_CMORPH_V0.x_RAW_0.25deg-DLY_00Z_'+ dates[0];
+//     cmorphLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//         layers: 'cmorph:'+cmorph_lyr,
+//         format: 'image/png',
+//         transparent: true,
+//         styles: 'virtual_rain_style',
+//     }).addTo(map);
+// }
+
+// function play_imerg(){
+//     timer = setTimeout(run, 3000);
+//     function run(){ 
+//         var dateValueIMERG = document.getElementById("date_value_imerg");
+//         dateValueIMERG.innerHTML = dates[i];
+//         var imerg_lyr = 'MK_3B-DAY-E.MS.MRG.3IMERG.' + dates[i] + '-S000000-E235959.V05';
+//         imergLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//             layers: 'imerg:'+imerg_lyr,
+//             format: 'image/png',
+//             transparent: true,
+//             styles: 'virtual_rain_style',
+//         }).addTo(map);
+//         var sliderRangeIMERG = document.getElementById("dateRangeIMERG");
+//         sliderRangeIMERG.max = dates.length - 1;
+//         sliderRangeIMERG.value = i; 
+//         i++
+//         // play();
+//         if (i < 5){
+//             play_imerg();
+//         } else {
+//             i=0
+//         }
+//     }
+// }
+// var start_imerg = document.getElementById("playIMERG");
+// start_imerg.addEventListener("click", play_imerg);
+
+// var stop_imerg = document.getElementById("pauseIMERG");
+// stop_imerg.addEventListener("click", pause_imerg);
+
+// var res_imerg = document.getElementById("resetIMERG");
+// res_imerg.addEventListener("click", reset_imerg);
+
+// function pause_imerg() {
+//     clearTimeout(timer);
+// }
+// function reset_imerg(){
+//     clearTimeout(timer);
+//     i=0
+//     var dateValue = document.getElementById("date_value_imerg");
+//     dateValue.innerHTML = dates[0];
+//     var sliderRangeIMERG = document.getElementById("dateRangeIMERG");
+//     sliderRangeIMERG.value = i;
+//     var imerg_lyr = 'MK_3B-DAY-E.MS.MRG.3IMERG.' + dates[0] + '-S000000-E235959.V05';
+//     imergLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
+//         layers: 'imerg:'+imerg_lyr,
+//         format: 'image/png',
+//         transparent: true,
+//         styles: 'virtual_rain_style',
+//     }).addTo(map);
+// }
 
 // // Update map based on selection of precipitation types
 // var precipBtn = document.getElementById("precipType");
@@ -761,72 +965,4 @@ function reset_imerg(){
 //         }
         
 //     } 
-// }
-
-// Define country boundary style
-var adm0Style = {
-    color: "#6A5ACD",
-    weight: 1.0,
-    //opacity: 0.6,
-    //fillOpacity: 0.3,
-    fillColor: "none",
-};
-var adm1Style = {
-    color: "#6A5ACD",
-    weight: 1.0,
-    //opacity: 0.6,
-    //fillOpacity: 0.3,
-    fillColor: "none",
-};
-// Highlight feature style
-var highlightStyle = {
-    color: '#00008B', 
-    weight: 1.0,
-    opacity: 0.6,
-    fillOpacity: 0.65,
-    // fillColor: '#2262CC'
-};
-
-var adm0_layer = L.geoJson(adm0, {
-    style: adm0Style,
-    onEachFeature: function(feature, admin0Layer) {
-        admin0Layer.bindTooltip(feature.properties.NAME_0);
-        // admin0Layer.on('mouseover', function (e) {
-        //     this.setStyle(highlightStyle);
-        //     this.bindTooltip(feature.properties.NAME_0);
-        // }); 
-        // admin0Layer.on('mouseout', function (e) {
-        //     this.setStyle(adm0Style);
-        // });                   
-    } 
-});
-
-var adm1_layer = L.geoJson(adm1, {
-    style: adm1Style,
-    onEachFeature: function(feature, admin1Layer) {
-        admin1Layer.bindTooltip(feature.properties.NAME_1);
-        // admin1Layer.on('mouseover', function (e) {
-        //     this.setStyle(highlightStyle);
-        //     this.bindTooltip(feature.properties.NAME_1);
-        // }); 
-        // admin1Layer.on('mouseout', function (e) {
-        //     this.setStyle(adm0Style);
-        // });                   
-    } 
-});
-
-// document.querySelector("#adm0_toggle").onclick = function(){
-//     if(this.checked) {
-//         map.addLayer(adm0_layer);
-//     } else {
-//         map.removeLayer(adm0_layer);
-//     }
-// }
-
-// document.querySelector("#adm1_toggle").onclick = function(){
-//     if(this.checked) {
-//         map.addLayer(adm1_layer);
-//     } else {
-//         map.removeLayer(adm1_layer);
-//     }
 // }

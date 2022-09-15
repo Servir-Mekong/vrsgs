@@ -9,3 +9,6 @@ class AboutPage(TemplateView):
 
 class PrecipMap(TemplateView):
     template_name = "mapviewer/precip_map.html"
+
+class CHIRPSGEFSMap(TemplateView):
+    template_name = "mapviewer/chirps-gefs_map.html"
