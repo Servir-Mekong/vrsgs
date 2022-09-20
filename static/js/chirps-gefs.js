@@ -1,3 +1,6 @@
+var play = document.querySelector("#pauseCHIRPS");
+
+
 function getDatesInRangeCHIRPS(startDate, endDate) {
     const date = new Date(startDate.getTime());
     // Exclude start date
@@ -13,11 +16,11 @@ function getDatesInRangeCHIRPS(startDate, endDate) {
 }
   
 const td = new Date(); // "2022-08-14"
-const priorDate = td.setDate(td.getDate() - 3)
+const priorDate = td.setDate(td.getDate() + 0)
 // const nd = new Date(priorDate).toISOString().split('T')[0].replace("-", "").replace("-", "");
 
 const td2 = new Date();
-const endDate = td2.setDate(td2.getDate() + 3)
+const endDate = td2.setDate(td2.getDate() + 5)
 
 const d1 =  new Date(priorDate);
 const d2 = new Date(endDate); //"2022-08-15"
@@ -25,7 +28,7 @@ const d2 = new Date(endDate); //"2022-08-15"
 const dates_chirps = getDatesInRangeCHIRPS(d1, d2)
 
 // var selected_date = dates_chirps[2]
-// console.log(selected_date)
+// console.log(dates_chirps)
 
 var dateValueCHIRPS = document.getElementById("date_value_chirps");
 dateValueCHIRPS.innerHTML = dates_chirps[2];
@@ -70,7 +73,7 @@ function play_chirps(){
         sliderRangeCHIRPS.value = i; 
         i++
         // play();
-        if (i < 5){
+        if (i < 4){
             play_chirps();
         } else {
             i=0

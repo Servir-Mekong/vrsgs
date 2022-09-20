@@ -7,8 +7,11 @@ class HomePage(TemplateView):
 class AboutPage(TemplateView):
     template_name = "about.html"
 
-class PrecipMap(TemplateView):
-    template_name = "mapviewer/precip_map.html"
+class PrecipHistMap(TemplateView):
+    template_name = "mapviewer/precip_hist_map.html"
+
+class PrecipNRTMap(TemplateView):
+    template_name = "mapviewer/precip_nrt_map.html"
 
 class CHIRPSGEFSMap(TemplateView):
     template_name = "mapviewer/chirps-gefs_map.html"

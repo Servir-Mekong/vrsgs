@@ -1,11 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-<!-- CSS files -->
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/map.css' %}">
-{% endblock %}
-
 {% block title %}Precipitation Map | HYDRO-MET BOX{% endblock %}
 
 {% block container %}
@@ -53,7 +48,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Virtual Rain Gauge
+                            Precipitation Map
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -90,7 +85,7 @@
                                         </div>
                                     </div>
                                 </div> -->
-                                <div id="cmorphSlider">
+                                <!-- <div id="cmorphSlider">
                                     <input type="range" class="custom-range pt-3" min="0" max="0" step="1" id="dateRangeCMORPH">
                                     <p class="fw-bold text-center pt-3" id="date_value_cmorph"></p>
                                     <div class="pt-2 pb-3 text-center">
@@ -121,7 +116,7 @@
                                             <label class="btn btn-outline-dark" for="resetIMERG" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset"><i class="fa-solid fa-rotate"></i></label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 
                                 <!-- <div class="pt-2 pb-3 text-center">
                                     <div class="btn-group d-flex" role="group" aria-label="Basic radio toggle button group">
@@ -297,6 +292,7 @@
 <!-- Extra JS files -->
 {% block extra_script %}
 <!-- Custom JS -->
-<script src="{% static 'js/precip.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/precip-nrt.js' %}"></script>
 
 {% endblock %}
