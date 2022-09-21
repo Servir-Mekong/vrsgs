@@ -316,3 +316,22 @@ input[type="range"]::-moz-range-progress {
     height: 8px;
     background: #106f83;
 }
+/* slider */
+#chirps-gefs-layer-opacity .slider-selection {
+	background: #106f83;
+}
+#chirps-gefs-layer-opacity .slider-handle {
+	background: #106f83;
+}
+#nrt-opacity .slider-selection {
+	background: #106f83;
+}
+#nrt-opacity .slider-handle {
+	background: #106f83;
+}
+#hist-layer-opacity .slider-selection {
+	background: #106f83;
+}
+#hist-layer-opacity .slider-handle {
+	background: #106f83;
+}

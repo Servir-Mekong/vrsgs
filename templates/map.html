@@ -1,12 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-<!-- CSS files -->
-{% block extra_css %}
-<!-- Leaflet CSS-->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-<link rel="stylesheet" href="{% static 'css/map.css' %}">
-{% endblock %}
+{% block title %}Precipitation Map | HYDRO-MET BOX{% endblock %}
 
 {% block container %}
 
@@ -53,23 +48,90 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Virtual Rain Gauge
+                            Precipitation Map
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <div class="form-check form-switch pt-2">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault">Country Layer</label>
+                                <!-- <label for="customRange3" class="form-label pt-5">Example range</label> -->
+                                <!-- <input type="range" class="form-range pt-5" min="0" max="0" step="1" id="dateRange"> -->
+                                <div class="precipType mb-3" id="precipType" >
+                                    <!-- <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="precipOptions" id="chirps" value="chirps" checked>
+                                        <label class="form-check-label" for="chirps">CHIRPS</label>
+                                    </div> -->
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="precipOptions" id="cmorph" value="cmorph">
+                                        <label class="form-check-label" for="cmorph">CMORPH</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="precipOptions" id="imerg" value="imerg" checked>
+                                        <label class="form-check-label" for="imerg">IMERG</label>
+                                    </div>
                                 </div>
-                                <div class="form-check form-switch pt-2">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                    <label class="form-check-label" for="flexSwitchCheckChecked">Province Layer</label>
+                                <label for="nrt-opacity" class="form-label">Opacity:</label><br>
+                                <input id="nrt-opacity" data-slider-id='nrt-opacity' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.1" data-slider-value="1"/>
+                                <!-- <div id="chirpsSlider">
+                                    <input type="range" class="custom-range pt-3" min="0" max="0" step="1" id="dateRangeCHIRPS">
+                                    <p class="fw-bold text-center pt-3" id="date_value_chirps"></p>
+                                    <div class="pt-2 pb-3 text-center">
+                                        <div class="btn-group d-flex" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="radioCHIRPS" id="playCHIRPS" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="playCHIRPS" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Play"><i class="fa-solid fa-play"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioCHIRPS" id="pauseCHIRPS" autocomplete="off" checked>
+                                            <label class="btn btn-outline-dark" for="pauseCHIRPS" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pause"><i class="fa-solid fa-pause"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioCHIRPS" id="resetCHIRPS" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="resetCHIRPS" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset"><i class="fa-solid fa-rotate"></i></label>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- <div id="cmorphSlider">
+                                    <input type="range" class="custom-range pt-3" min="0" max="0" step="1" id="dateRangeCMORPH">
+                                    <p class="fw-bold text-center pt-3" id="date_value_cmorph"></p>
+                                    <div class="pt-2 pb-3 text-center">
+                                        <div class="btn-group d-flex" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="radioCMORPH" id="playCMORPH" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="playCMORPH" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Play"><i class="fa-solid fa-play"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioCMORPH" id="pauseCMORPH" autocomplete="off" checked>
+                                            <label class="btn btn-outline-dark" for="pauseCMORPH" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pause"><i class="fa-solid fa-pause"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioCMORPH" id="resetCMORPH" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="resetCMORPH" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset"><i class="fa-solid fa-rotate"></i></label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-check form-switch pt-2">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                    <label class="form-check-label" for="flexSwitchCheckChecked">District Layer</label>
-                                </div>
+                                <div id="imergSlider">
+                                    <input type="range" class="custom-range pt-3" min="0" max="0" step="1" id="dateRangeIMERG">
+                                    <p class="fw-bold text-center pt-3" id="date_value_imerg"></p>
+                                    <div class="pt-2 pb-3 text-center">
+                                        <div class="btn-group d-flex" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" class="btn-check" name="radioIMERG" id="playIMERG" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="playIMERG" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Play"><i class="fa-solid fa-play"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioIMERG" id="pauseIMERG" autocomplete="off" checked>
+                                            <label class="btn btn-outline-dark" for="pauseIMERG" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pause"><i class="fa-solid fa-pause"></i></label>
+                                          
+                                            <input type="radio" class="btn-check" name="radioIMERG" id="resetIMERG" autocomplete="off">
+                                            <label class="btn btn-outline-dark" for="resetIMERG" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset"><i class="fa-solid fa-rotate"></i></label>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                
+                                <!-- <div class="pt-2 pb-3 text-center">
+                                    <div class="btn-group d-flex" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check" name="btnradio" id="play" autocomplete="off">
+                                        <label class="btn btn-outline-dark" for="play" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Play"><i class="fa-solid fa-play"></i></label>
+                                      
+                                        <input type="radio" class="btn-check" name="btnradio" id="pause" autocomplete="off" checked>
+                                        <label class="btn btn-outline-dark" for="pause" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Pause"><i class="fa-solid fa-pause"></i></label>
+                                      
+                                        <input type="radio" class="btn-check" name="btnradio" id="reset" autocomplete="off">
+                                        <label class="btn btn-outline-dark" for="reset" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reset"><i class="fa-solid fa-rotate"></i></label>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -81,19 +143,29 @@
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                            
-                            </div>
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                                    <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
+                                  
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
+                                  
+                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
+                                </div>
+                                <label for="customRange3" class="form-label pt-5">Example range</label> -->
+                                <!-- <input type="range" class="form-range pt-5" min="0" max="0" step="1" id="dateRange" value="0"> -->
+                                <!-- <input type="range" min="0" max="0" step="1" id="dateRange"> -->
+                                <!-- <p class="fw-bold text-center pt-3" id="date_value"></p>
+                                <div class="btn-group pt-3" role="group" aria-label="Basic outlined example">
+                                    <button type="button" class="btn btn-outline-primary" id="play"><i class="fa-solid fa-play"></i></button>
+                                    <button type="button" class="btn btn-outline-primary" id="pause"><i class="fa-solid fa-pause"></i></button>
+                                    <button type="button" class="btn btn-outline-primary" id="reset_map"><i class="fa-solid fa-rotate"></i></button>
+                                </div> -->
+                            <!-- </div>
                         </div>
-                    </div> -->
+                    </div> --> 
                 </div>
-                <!-- <label for="customRange3" class="form-label pt-5">Example range</label> -->
-                <input type="range" class="form-range pt-5" min="0" max="0" step="1" id="dateRange">
-                <div class="btn-group pt-3" role="group" aria-label="Basic outlined example">
-                    <button type="button" class="btn btn-outline-primary" id="play">Play</button>
-                    <button type="button" class="btn btn-outline-primary" id="pause">Pause</button>
-                    <button type="button" class="btn btn-outline-primary" id="reset">Reset</button>
-                </div>
-                <p id="date_value"></p>
             </div>
         </div>
 
@@ -105,14 +177,22 @@
                         class="fas fa-arrow-left fa-lg"></i></button><span class="fw-bold fs-5">Layer
                     Panel</span></div>
             <div class="card card-body layer-card m-2 border-0">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" name="adm0_toggle" id="adm0_toggle">
-                    <label class="form-check-label" for="adm0_toggle">Country Boundary</label>
+                <div class="form-check form-switch pt-2">
+                    <input class="form-check-input" type="checkbox" name="adm0_toggle" id="adm0_toggle" checked>
+                    <label class="form-check-label" for="adm0_toggle">Country Layer</label>
                 </div>
-                <div class="form-check form-switch">
+                <div class="form-check form-switch pt-2">
                     <input class="form-check-input" type="checkbox" name="adm1_toggle" id="adm1_toggle">
-                    <label class="form-check-label" for="adm1_toggle">Province Boundary</label>
+                    <label class="form-check-label" for="adm1_toggle">Province Layer</label>
                 </div>
+                <div class="form-check form-switch pt-2">
+                    <input class="form-check-input" type="checkbox" name="adm2_toggle" id="adm2_toggle">
+                    <label class="form-check-label" for="adm2_toggle">District Layer</label>
+                </div>
+                <!-- <div class="form-check form-switch pt-2">
+                    <input class="form-check-input" type="checkbox" name="precip_toggle" id="precip_toggle" checked>
+                    <label class="form-check-label" for="precip_toggle">Precipitation Layer</label>
+                </div> -->
             </div>
         </div>
 
@@ -198,30 +278,14 @@
     </div>
 </div>
 <div id="map"></div>
-<!-- <div class="slidecontainer">
-    <label for="customRange3" class="form-label">Example range</label>
-    <input type="range" class="form-range" min="0" max="7" step="1" id="dateRange">
-    <div class="btn-group pt-3" role="group" aria-label="Basic outlined example">
-        <button type="button" class="btn btn-outline-primary">Play</button>
-        <button type="button" class="btn btn-outline-primary">Pause</button>
-        <button type="button" class="btn btn-outline-primary">Reset</button>
-    </div>
-    <p id="date_value"></p>
-</div> -->
+
 
 {% endblock container%}
 
 <!-- Extra JS files -->
 {% block extra_script %}
-
-<!-- Load Data -->
-<script src="{% static 'data/adm0.geojson' %}"></script>
-<script src="{% static 'data/adm1.geojson' %}"></script>
-
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-
 <!-- Custom JS -->
 <script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/precip-nrt.js' %}"></script>
 
 {% endblock %}

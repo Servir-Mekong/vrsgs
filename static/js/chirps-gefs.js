@@ -1,3 +1,5 @@
+$("#chirps-gefs-layer-opacity").slider();
+
 var play = document.querySelector("#pauseCHIRPS");
 
 
@@ -20,7 +22,7 @@ const priorDate = td.setDate(td.getDate() + 0)
 // const nd = new Date(priorDate).toISOString().split('T')[0].replace("-", "").replace("-", "");
 
 const td2 = new Date();
-const endDate = td2.setDate(td2.getDate() + 5)
+const endDate = td2.setDate(td2.getDate() + 6)
 
 const d1 =  new Date(priorDate);
 const d2 = new Date(endDate); //"2022-08-15"
@@ -31,7 +33,7 @@ const dates_chirps = getDatesInRangeCHIRPS(d1, d2)
 // console.log(dates_chirps)
 
 var dateValueCHIRPS = document.getElementById("date_value_chirps");
-dateValueCHIRPS.innerHTML = dates_chirps[2];
+dateValueCHIRPS.innerHTML = dates_chirps[0];
 
 var chirpsLayer;
 var chirps_lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[0];
@@ -46,6 +48,9 @@ chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
 var sliderRangeCHIRPS = document.getElementById("dateRangeCHIRPS");
 sliderRangeCHIRPS.max = dates_chirps.length - 1;
 sliderRangeCHIRPS.oninput = function(){
+    if (map.hasLayer(chirpsLayer)){
+        map.removeLayer(chirpsLayer)
+    }
     dateValueCHIRPS.innerHTML = dates_chirps[this.value];
     var lyr = 'mb_cgefs_precip_0p05_'+ dates_chirps[this.value];
     chirpsLayer = L.tileLayer.wms('https://geoserver.adpc.net/geoserver/wms?', {
@@ -73,7 +78,7 @@ function play_chirps(){
         sliderRangeCHIRPS.value = i; 
         i++
         // play();
-        if (i < 4){
+        if (i < 5){
             play_chirps();
         } else {
             i=0
@@ -94,6 +99,9 @@ function pause_chirps() {
 }
 function reset_chirps(){
     clearTimeout(timer);
+    if (map.hasLayer(chirpsLayer)){
+        map.removeLayer(chirpsLayer)
+    }
     i=0
     var dateValue = document.getElementById("date_value_chirps");
     dateValue.innerHTML = dates_chirps[0];
@@ -107,3 +115,10 @@ function reset_chirps(){
         styles: 'virtual_rain_style',
     }).addTo(map);
 }
+
+// Get layer slider value
+$("#chirps-gefs-layer-opacity").on("slide", function(slideEvt) {
+    //console.log(slideEvt.value);
+    var opac = slideEvt.value
+    chirpsLayer.setOpacity(opac);
+});

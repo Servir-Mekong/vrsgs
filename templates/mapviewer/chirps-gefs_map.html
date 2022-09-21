@@ -56,7 +56,9 @@
                                 <div id="chirpsSlider">
                                     <input type="range" class="custom-range pt-3" min="0" max="0" step="1" id="dateRangeCHIRPS">
                                     <p class="fw-bold text-center pt-3" id="date_value_chirps"></p>
-                                    <div class="pt-2 pb-3 text-center">
+                                    <label for="chirps-gefs-layer-opacity" class="form-label">Opacity:</label><br>
+                                    <input id="chirps-gefs-layer-opacity" data-slider-id='chirps-gefs-layer-opacity' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.1" data-slider-value="1"/>
+                                    <div class="pt-5 pb-3 text-center">
                                         <div class="btn-group d-flex" role="group" aria-label="Basic radio toggle button group">
                                             <input type="radio" class="btn-check" name="radioCHIRPS" id="playCHIRPS" autocomplete="off">
                                             <label class="btn btn-outline-dark" for="playCHIRPS" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Play"><i class="fa-solid fa-play"></i> Play</label>
@@ -181,16 +183,6 @@
     </div>
 </div>
 <div id="map"></div>
-<!-- <div class="slidecontainer">
-    <label for="customRange3" class="form-label">Example range</label>
-    <input type="range" class="form-range" min="0" max="7" step="1" id="dateRange">
-    <div class="btn-group pt-3" role="group" aria-label="Basic outlined example">
-        <button type="button" class="btn btn-outline-primary">Play</button>
-        <button type="button" class="btn btn-outline-primary">Pause</button>
-        <button type="button" class="btn btn-outline-primary">Reset</button>
-    </div>
-    <p id="date_value"></p>
-</div> -->
 
 {% endblock container%}
 
