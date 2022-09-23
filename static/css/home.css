@@ -6,8 +6,9 @@
     background-image: url("/static/images/bg.jpg"); 
     background-size: cover;
     background-repeat: no-repeat;
-    height: 640px;
+    /* height: 500px; */
 } 
+
 .jumbotron-card{
     background-color: rgba(0, 0, 0, 0.3);
     width: 100%;
@@ -15,10 +16,10 @@
 }
 .jumbotron-card h2{
     text-align: left;
-    font-family: 'Sans-serif';
+    /* font-family: ''; */
     /* padding-left: 75px; */
     font-weight: bolder;
-    padding-top: 80px;
+    padding-top: 120px;
     padding-bottom: 0px;
     margin-bottom: 0px;
     font-size: 35px;
@@ -62,6 +63,9 @@
     padding-left: 35px;
     padding-right: 35px;
     /* color: #fff;  */
+}
+.jumbotron-card .btn-light{
+    margin-bottom: 120px;
 }
 .jumbotron-card .btn-light:hover{
     color: #fff;
