@@ -118,14 +118,17 @@
         width: 5%;
     }
 }  */
-.dropdown-menu {
-    margin-top: -10px;
-    background-color: #002984;
-    color: #fff;
+.dropdown .dropdown-menu{
+    margin-top: -2px;
+    background-color: #eee;
+    border-radius: 0 !important;
 }
-.dropdown-item {
-    color: #fff;
+.dropdown .dropdown-item {
+    color:#000;
     font-size: 1.1em;
+}
+.dropdown .dropdown-item:hover {
+    color:#05445E;
 }
 .navbar-toggler:focus,
 .navbar-toggler:active,
