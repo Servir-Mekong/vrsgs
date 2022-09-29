@@ -15,7 +15,7 @@
     <div class="jumbotron text-left">
         <div class="jumbotron-card">
             <div class="container">
-                <h2>An easy access platform to Earth Observation satellites for monitoring and forecasting hydro-climate and meteorological data in Lower Mekong Region</h2> 
+                <h2>HYDRO-MET Box is an easy-access platform for hydro-meteorological data in Lower Mekong Region</h2> 
                 <p class="pt-5 pb-3">To increase the availability of hydro-met data in the transboundary areas and ungauged river basins which is fully customizable to meet user needs.</p>
                 <a role="button" class="btn btn-light py-2 rounded-pill me-1 ps-5 pe-5" href="/about"> Read More</a>
                 <!-- <div class="row">
@@ -35,7 +35,7 @@
 
 <div class="container mt-5 mb-5">
     <div class="row">
-        <div class="col-md-3 mt-5">
+        <div class="col-lg-3 col-md-6 mt-5">
             <div class="card border-custom-color border-1">
                 <div class="card-header bg-card-header text-white">
                     <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-cloud-rain"></i> Precipitation</h5>
@@ -51,35 +51,41 @@
                         <li class="list-group-item border-0">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="precip" id="precipHist" value="precipHist">
-                                <label class="form-check-label" for="precipHist">Historical</label>
+                                <label class="form-check-label" for="precipHist">Historical/Near real-time</label>
                             </div>
                         </li>
                     </ul>
-                    <ul class="list-group list-group-horizontal">
+                    <!-- <ul class="list-group list-group-horizontal">
                         <li class="list-group-item border-0">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="precip" id="precipNRT" value="precipNRT">
                                 <label class="form-check-label" for="precipNRT">Near real-time</label>
                             </div>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="card-footer text-center bg-white border-0">
-                    
-                    <div class="btn-group pt-3 pb-3" id="precipForecastBtn">
-                        <a href="/chirps-gefs-map/" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
-                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                    <div id="precipForecastBtn">
+                        <h6 class="fw-bold">CHIRPS-GEFS</h6>
+                        <h6><i class="fa-solid fa-arrow-down"></i></h6>
+                        <div class="btn-group pt-3 pb-3">
+                            <a href="/chirps-gefs-map/" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                            <a href="/download" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                        </div>
+                        <a href="https://github.com/Servir-Mekong/ClimateSERV_CHIRPS-GEFS" class="btn btn-rounded3" role="button" target="_blank"><i class="fa-brands fa-github"></i> View GitHub Repo</a>
                     </div>
-                    
-                    <div class="btn-group pt-3 pb-3" id="precipHistBtn">
-                        <a href="/precipitation-hist-map/" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
-                        <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
-                    </div>
-                    
-                    <div class="btn-group pt-3 pb-3" id="precipNRTBtn">
+                    <div id="precipHistBtn" style="display: none;">
+                        <h6 class="fw-bold">GPM-IMERG</h6>
+                        <h6><i class="fa-solid fa-arrow-down"></i></h6>
+                        <div class="btn-group pt-3 pb-3">
+                            <a href="/precipitation-hist-map/" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
+                            <a href="/download" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
+                        </div>
+                    </div>    
+                    <!-- <div class="btn-group pt-3 pb-3" id="precipNRTBtn">
                         <a href="/precipitation-nrt-map/" class="btn btn-rounded1"><i class="fas fa-map"></i> View on Map</a>
                         <a href="#" class="btn btn-rounded2"><i class="fas fa-download"></i> Download</a>
-                    </div>
+                    </div> -->
                     <div class="accordion pt-3" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header text-center" id="headingOne">
@@ -125,7 +131,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mt-5">
+        <div class="col-lg-3 col-md-6 mt-5">
             <div class="card border-custom-color border-1" style="height: 100%;">
                 <div class="card-header bg-card-header text-white">
                     <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-toolbox"></i> Precipitation Bias Correction Tool</h5>
@@ -145,7 +151,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mt-5">
+        <div class="col-lg-3 col-md-6 mt-5">
             <div class="card border-custom-color border-1 opacity-50" style="height: 100%;" data-toggle="tooltip" data-placement="top" title="Comming soon">
                 <div class="card-header bg-card-header text-white">
                     <h5 class="h5 fw-bold text-center"><i class="fas fa-sun"></i> Soil Moisture</h5>
@@ -183,7 +189,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mt-5">
+        <div class="col-lg-3 col-md-6 mt-5">
             <div class="card border-custom-color border-1 opacity-50" style="height: 100%;" data-toggle="tooltip" data-placement="top" title="Comming soon">
                 <div class="card-header bg-card-header text-white">
                     <h5 class="h5 fw-bold text-center"><i class="fa-solid fa-house-crack"></i> Land Subsidence</h5>

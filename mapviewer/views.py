@@ -7,6 +7,9 @@ class HomePage(TemplateView):
 class AboutPage(TemplateView):
     template_name = "about.html"
 
+class DownloadPage(TemplateView):
+    template_name = "download.html"
+
 class PrecipHistMap(TemplateView):
     template_name = "mapviewer/precip_hist_map.html"
 
