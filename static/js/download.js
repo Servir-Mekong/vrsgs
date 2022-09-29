@@ -12,9 +12,9 @@ download_btn.addEventListener('click', () => {
     })
     .then((response) => response.json())
     .then((data) => {
-        console.log(data)
+        // console.log(data)
         // window.open(data)
-        alert(data)
+        // alert(data)
         window.location = data;
     })
     .catch((err) => {
